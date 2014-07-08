@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+	default-lazy-init="false" default-autowire="byType">
+
+	<context:property-placeholder location="classpath:conf/security_jdbc.properties"
+		ignore-unresolvable="true" />
+
+	<bean id="security_dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<bean id="security_sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-conf-admin.xml" />
+		<property name="dataSource" ref="security_dataSource" />
+	</bean>
+
+	<bean id="adminUserMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.bruce.baseAdmin.mapper.security.AdminUserMapper" />
+		<property name="sqlSessionFactory" ref="security_sqlSessionFactory" />
+	</bean>
+
+	<bean id="adminRoleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.bruce.baseAdmin.mapper.security.AdminRoleMapper" />
+		<property name="sqlSessionFactory" ref="security_sqlSessionFactory" />
+	</bean>
+
+	<bean id="adminResourceMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.bruce.baseAdmin.mapper.security.AdminResourceMapper" />
+		<property name="sqlSessionFactory" ref="security_sqlSessionFactory" />
+	</bean>
+
+	<bean id="adminUserRoleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.bruce.baseAdmin.mapper.security.AdminUserRoleMapper" />
+		<property name="sqlSessionFactory" ref="security_sqlSessionFactory" />
+	</bean>
+
+	<bean id="adminRoleResourceMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.bruce.baseAdmin.mapper.security.AdminRoleResourceMapper" />
+		<property name="sqlSessionFactory" ref="security_sqlSessionFactory" />
+	</bean>
+
+</beans>
