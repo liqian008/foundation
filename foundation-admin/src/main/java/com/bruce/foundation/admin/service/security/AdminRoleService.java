@@ -4,9 +4,10 @@ import java.util.List;
 
 
 import com.bruce.foundation.admin.model.security.AdminRole;
+import com.bruce.foundation.admin.model.security.AdminRoleCriteria;
 import com.bruce.foundation.service.IBaseService;
 
-public interface AdminRoleService extends IBaseService<AdminRole, Integer>{
+public interface AdminRoleService extends IBaseService<AdminRole, Integer, AdminRoleCriteria>{
 
 	public List<AdminRole> getRolesByUserId(Integer userId);
 

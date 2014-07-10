@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+	<classPathEntry location="/home/liqian/data/mysql.jar" />
+
+	<!-- 
+	<classPathEntry location="/Users/liqian/.m2/repository_lican/mysql/mysql-connector-java/5.1.23/mysql-connector-java-5.1.23.jar"/>
+	 -->
+
+	<context id="context1">
+		<!-- 分页插件 -->
+		<plugin type="com.bruce.mybatisTest.PaginationPlugin" />
+
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</plugin>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/security" userId="designer"
+			password="designer" />
+		<javaModelGenerator targetPackage="com.bruce.foundation.admin.model.security"
+			targetProject="mybatisTest" />
+		<sqlMapGenerator targetPackage="com.bruce.foundation.admin.model.security.xml"
+			targetProject="mybatisTest" />
+		<javaClientGenerator targetPackage="com.bruce.foundation.admin.dao.security"
+			targetProject="mybatisTest" type="XMLMAPPER">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+
+		<!-- admin tables -->
+		<table schema="security" tableName="admin_user" domainObjectName="AdminUser" />
+		<table schema="security" tableName="admin_role" domainObjectName="AdminRole" />
+		<table schema="security" tableName="admin_resource" domainObjectName="AdminResource" />
+		<table schema="security" tableName="admin_user_role" domainObjectName="AdminUserRole" />
+		<table schema="security" tableName="admin_role_resource" domainObjectName="AdminRoleResource" />
+
+
+	</context>
+</generatorConfiguration>

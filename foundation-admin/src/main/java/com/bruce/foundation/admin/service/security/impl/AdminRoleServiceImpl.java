@@ -19,6 +19,7 @@ import com.bruce.foundation.admin.model.security.AdminUserRole;
 import com.bruce.foundation.admin.model.security.AdminUserRoleCriteria;
 import com.bruce.foundation.admin.service.security.AdminRoleService;
 import com.bruce.foundation.enumeration.StatusEnum;
+import com.bruce.foundation.model.PagingResult;
 
 @Service
 public class AdminRoleServiceImpl implements AdminRoleService{ 
@@ -43,8 +44,18 @@ public class AdminRoleServiceImpl implements AdminRoleService{
 	}
 
 	@Override
+	public int updateByCriteria(AdminRole t, AdminRoleCriteria criteria) {
+		return adminRoleMapper.updateByExampleSelective(t, criteria);
+	}
+	
+	@Override
 	public int deleteById(Integer id) {
 		return adminRoleMapper.deleteByPrimaryKey(id);
+	}
+	
+	@Override
+	public int deleteByCriteria(AdminRoleCriteria criteria) {
+		return adminRoleMapper.deleteByExample(criteria);
 	}
 
 	@Override
@@ -55,6 +66,23 @@ public class AdminRoleServiceImpl implements AdminRoleService{
 	@Override
 	public List<AdminRole> queryAll() {
 		return adminRoleMapper.selectByExample(null);
+	}
+	
+	@Override
+	public List<AdminRole> queryByCriteria(AdminRoleCriteria criteria) {
+		return adminRoleMapper.selectByExample(criteria);
+	}
+
+	@Override
+	public List<AdminRole> fallloadByCriteria(int pageSize,
+			AdminRoleCriteria criteria) {
+		return null;
+	}
+
+	@Override
+	public PagingResult<AdminRole> pagingByCriteria(int pageNo, int pageSize,
+			AdminRoleCriteria criteria) {
+		return null;
 	}
 	
 	

@@ -23,6 +23,7 @@ import com.bruce.foundation.admin.security.WebSecurityMetadataSource;
 import com.bruce.foundation.admin.service.security.AdminResourceService;
 import com.bruce.foundation.admin.utils.ConstantsUtil;
 import com.bruce.foundation.enumeration.StatusEnum;
+import com.bruce.foundation.model.PagingResult;
 
 @Service
 public class AdminResourceServiceImpl implements AdminResourceService{ 
@@ -45,10 +46,20 @@ public class AdminResourceServiceImpl implements AdminResourceService{
 	public int updateById(AdminResource adminResource) {
 		return adminResourceMapper.updateByPrimaryKeySelective(adminResource);
 	}
+	
+	@Override
+	public int updateByCriteria(AdminResource adminResource, AdminResourceCriteria criteria) {
+		return adminResourceMapper.updateByExampleSelective(adminResource, criteria);
+	}
 
 	@Override
 	public int deleteById(Integer id) {
 		return adminResourceMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public int deleteByCriteria(AdminResourceCriteria criteria) {
+		return adminResourceMapper.deleteByExample(criteria);
 	}
 
 	@Override
@@ -60,6 +71,26 @@ public class AdminResourceServiceImpl implements AdminResourceService{
 	public List<AdminResource> queryAll() {
 		return adminResourceMapper.selectByExample(null);
 	}
+
+	@Override
+	public List<AdminResource> queryByCriteria(AdminResourceCriteria criteria) {
+		return adminResourceMapper.selectByExample(criteria);
+	}
+
+	@Override
+	public List<AdminResource> fallloadByCriteria(int pageSize,
+			AdminResourceCriteria criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PagingResult<AdminResource> pagingByCriteria(int pageNo,
+			int pageSize, AdminResourceCriteria criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 	@Override
 	public List<AdminResource> getChildResources(Integer parentResourceId) {
@@ -258,5 +289,6 @@ public class AdminResourceServiceImpl implements AdminResourceService{
             securityMetadataSource.initResource();
         }
     }
+
 	
 }

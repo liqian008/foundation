@@ -5,9 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bruce.foundation.admin.model.security.AdminResource;
+import com.bruce.foundation.admin.model.security.AdminResourceCriteria;
 import com.bruce.foundation.service.IBaseService;
 
-public interface AdminResourceService extends IBaseService<AdminResource, Integer>{
+public interface AdminResourceService extends IBaseService<AdminResource, Integer, AdminResourceCriteria>{
 
 	public List<AdminResource> getAvailableResources();
 	

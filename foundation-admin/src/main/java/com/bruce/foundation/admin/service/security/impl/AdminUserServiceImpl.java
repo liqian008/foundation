@@ -15,6 +15,7 @@ import com.bruce.foundation.admin.model.security.AdminUserCriteria;
 import com.bruce.foundation.admin.model.security.AdminUserRole;
 import com.bruce.foundation.admin.model.security.AdminUserRoleCriteria;
 import com.bruce.foundation.admin.service.security.AdminUserService;
+import com.bruce.foundation.model.PagingResult;
 
 @Service
 public class AdminUserServiceImpl implements AdminUserService{ 
@@ -37,8 +38,18 @@ public class AdminUserServiceImpl implements AdminUserService{
 	}
 
 	@Override
+	public int updateByCriteria(AdminUser t, AdminUserCriteria criteria) {
+		return adminUserMapper.updateByExampleSelective(t, criteria);
+	}
+
+	@Override
 	public int deleteById(Integer id) {
 		return adminUserMapper.deleteByPrimaryKey(id);
+	}
+	
+	@Override
+	public int deleteByCriteria(AdminUserCriteria criteria) {
+		return deleteByCriteria(criteria);
 	}
 
 	@Override
@@ -50,6 +61,22 @@ public class AdminUserServiceImpl implements AdminUserService{
 	public List<AdminUser> queryAll() {
 		return adminUserMapper.selectByExample(null);
 	}
+	
+	@Override
+	public List<AdminUser> queryByCriteria(AdminUserCriteria criteria) {
+		return adminUserMapper.selectByExample(criteria);
+	}
+
+	@Override
+	public List<AdminUser> fallloadByCriteria(int pageSize, AdminUserCriteria criteria) {
+		return null;
+	}
+
+	@Override
+	public PagingResult<AdminUser> pagingByCriteria(int pageNo, int pageSize, AdminUserCriteria criteria) {
+		return null;
+	}
+	
 
 	@Override
 	public AdminUser loadUserByUsername(String username) {
@@ -91,6 +118,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 		criteria.createCriteria().andUserIdEqualTo(userId);
 		return adminUserRoleMapper.deleteByExample(criteria);
 	}
+
 
 	
 }
