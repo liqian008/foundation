@@ -2,16 +2,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.bruce</groupId>
-	<artifactId>baseFramework-root</artifactId>
+	<artifactId>foundation-root</artifactId>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>baseFramework-root</name>
+	<name>foundation-root</name>
 
 	<modules>
-		<module>baseFramework-admin</module>
-		<module>baseFramework-model</module>
-		<module>baseFramework-service</module>
-		<module>baseFramework-util</module>
+		<module>foundation-admin</module>
+		<module>foundation-model</module>
+		<module>foundation-service</module>
+		<module>foundation-util</module>
 	</modules>
 
 	<properties>

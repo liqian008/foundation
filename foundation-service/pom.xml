@@ -3,16 +3,16 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.bruce</groupId>
-	<artifactId>baseFramework-model</artifactId>
+	<artifactId>foundation-service</artifactId>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>baseFrameworkService</name>
+	<name>baseFramework-service</name>
 	<url>http://maven.apache.org</url>
 
 	<parent>
 		<groupId>com.bruce</groupId>
-		<artifactId>baseFramework-root</artifactId>
+		<artifactId>foundation-root</artifactId>
 		<version>1.0.0-BUILD-SNAPSHOT</version>
 	</parent>
 	
@@ -21,9 +21,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
-	
 
 	<dependencies>
+		<dependency>
+			<groupId>com.bruce</groupId>
+			<artifactId>foundation-model</artifactId>
+			<version>1.0.0-BUILD-SNAPSHOT</version>
+		</dependency>
+	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

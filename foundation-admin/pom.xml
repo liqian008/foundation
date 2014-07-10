@@ -2,13 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.bruce</groupId>
-	<artifactId>baseFramework-admin</artifactId>
+	<artifactId>foundation-admin</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	
 	<parent>
 		<groupId>com.bruce</groupId>
-		<artifactId>baseFramework-root</artifactId>
+		<artifactId>foundation-root</artifactId>
 		<version>1.0.0-BUILD-SNAPSHOT</version>
 	</parent>
 	
@@ -23,7 +23,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.bruce</groupId>
-			<artifactId>baseFramework-service</artifactId>
+			<artifactId>foundation-service</artifactId>
 			<version>1.0.0-BUILD-SNAPSHOT</version>
 		</dependency>
 		

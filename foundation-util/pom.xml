@@ -3,16 +3,16 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.bruce</groupId>
-	<artifactId>baseFramework-util</artifactId>
+	<artifactId>foundation-util</artifactId>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>baseFramework-service</name>
+	<name>foundation-service</name>
 	<url>http://maven.apache.org</url>
 
 	<parent>
 		<groupId>com.bruce</groupId>
-		<artifactId>baseFramework-root</artifactId>
+		<artifactId>foundation-root</artifactId>
 		<version>1.0.0-BUILD-SNAPSHOT</version>
 	</parent>
 	
