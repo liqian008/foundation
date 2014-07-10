@@ -10,7 +10,7 @@
 
 	<context id="context1">
 		<!-- 分页插件 -->
-		<plugin type="com.bruce.mybatisTest.PaginationPlugin" />
+		<plugin type="com.bruce.mybatisPlugin.PaginationPlugin" />
 
 		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
 			<property name="searchString" value="Example$" />
