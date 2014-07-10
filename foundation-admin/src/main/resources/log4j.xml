@@ -52,13 +52,13 @@
 		<level value="OFF"/>		
 	</logger>
  	<logger name="org.springframework">
-		<level value="INFO"/>
+		<level value="debug"/>
 	</logger>
    
    <!-- 日志的总开关设置 包括日志级别和 appender  -->
 	<root>
 		<level value="DEBUG"/>
-		<!-- <appender-ref ref="CONSOLE"/> -->
+		<appender-ref ref="CONSOLE"/>
 		<!-- <appender-ref ref="logdebug"/> -->
 		<appender-ref ref="loginfo"/>
 		<appender-ref ref="logerror"/>

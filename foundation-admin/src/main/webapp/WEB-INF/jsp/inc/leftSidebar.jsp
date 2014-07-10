@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.bruce.baseAdmin.model.security.AdminResource"%>
+<%@page import="com.bruce.foundation.admin.model.security.AdminResource"%>
 
 
 <%!public String liActive(String servletPath, String resourceUrl) {

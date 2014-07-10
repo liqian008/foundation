@@ -22,10 +22,10 @@
 	
 	<!-- 拦截器 -->  
    <mvc:interceptors>
-    	<bean class="com.bruce.baseAdmin.interceptors.WebDefaultInterceptor"/>
+    	<bean class="com.bruce.foundation.admin.interceptors.WebDefaultInterceptor"/>
     	<mvc:interceptor>    
         	<mvc:mapping path="/u/**" />
-        	<bean class="com.bruce.baseAdmin.interceptors.UAuthorizeInterceptor"></bean>
+        	<bean class="com.bruce.foundation.admin.interceptors.UAuthorizeInterceptor"></bean>
     	</mvc:interceptor>
 	</mvc:interceptors>
 	

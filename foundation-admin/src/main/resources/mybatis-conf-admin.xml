@@ -4,11 +4,11 @@
 <configuration>
 
 	<mappers>
-		<mapper resource="com/bruce/baseAdmin/model/security/xml/AdminUserMapper.xml" />
-		<mapper resource="com/bruce/baseAdmin/model/security/xml/AdminRoleMapper.xml" />
-		<mapper resource="com/bruce/baseAdmin/model/security/xml/AdminUserRoleMapper.xml" />
-		<mapper resource="com/bruce/baseAdmin/model/security/xml/AdminResourceMapper.xml" />
-		<mapper resource="com/bruce/baseAdmin/model/security/xml/AdminRoleResourceMapper.xml" />
+		<mapper resource="com/bruce/foundation/admin/model/security/xml/AdminUserMapper.xml" />
+		<mapper resource="com/bruce/foundation/admin/model/security/xml/AdminRoleMapper.xml" />
+		<mapper resource="com/bruce/foundation/admin/model/security/xml/AdminUserRoleMapper.xml" />
+		<mapper resource="com/bruce/foundation/admin/model/security/xml/AdminResourceMapper.xml" />
+		<mapper resource="com/bruce/foundation/admin/model/security/xml/AdminRoleResourceMapper.xml" />
 	</mappers>
 
 </configuration>

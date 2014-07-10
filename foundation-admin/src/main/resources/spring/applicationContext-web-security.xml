@@ -81,8 +81,8 @@
 	</beans:bean>
 	
 	<!-- 配置自定义的支持验证码等多功能过滤器 -->
-	<beans:bean id="validateCodeAuthenticationFilter" init-method="init" class="com.bruce.baseAdmin.security.ValidateCodeUsernamePasswordAuthenticationFilter">
-		<beans:property name="filterProcessesUrl" value="/doLogin"></beans:property> 
+	<beans:bean id="validateCodeAuthenticationFilter" init-method="init" class="com.bruce.foundation.admin.security.ValidateCodeUsernamePasswordAuthenticationFilter">
+		<beans:property name="filterProcessesUrl" value="/doLogin"></beans:property>
 		<beans:property name="userNameParameter" value="userName"></beans:property>
 		<beans:property name="passWordParameter" value="passWord"></beans:property>
 		<beans:property name="successUrl" value="/home/index"></beans:property>

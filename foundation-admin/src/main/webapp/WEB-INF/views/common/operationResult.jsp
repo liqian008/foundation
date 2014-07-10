@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ include file="../common/include_tag.jsp" %>
 <%@ include file="../common/page_var.jsp" %>
-<%@ page import="com.bruce.baseAdmin.utils.ConstantsUtil" %>
+<%@ page import="com.bruce.foundation.admin.utils.ConstantsUtil" %>
 
 <%
     String message = (String) request.getAttribute(ConstantsUtil.MESSAGE);
