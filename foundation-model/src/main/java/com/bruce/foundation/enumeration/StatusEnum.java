@@ -2,8 +2,10 @@ package com.bruce.foundation.enumeration;
 
 public enum StatusEnum {
     
-	CLOSED("禁用", (short)0),
-    OPEN("启用", (short)1);
+	//ALL("全部", (short)-1),
+	DISABLE("禁用", (short)0),
+    ENABLE("启用", (short)1),
+	DELETED("已删除", (short)2);
     
     private String name;
     private short status;
@@ -13,29 +15,24 @@ public enum StatusEnum {
         this.status = status;
     }
     
-    public String getName(short status){
-        for (StatusEnum e : StatusEnum.values()) {  
-            if (e.getStatus() == status) {  
-                return e.name;  
-            }  
-        }
-        return null;
+    public static String getName(Short status){
+    	if(status!=null){
+	        for (StatusEnum e : StatusEnum.values()) {  
+	            if (e.getStatus() == status) {  
+	                return e.name;  
+	            }  
+	        }
+    	}
+        return "状态异常";
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public short getStatus() {
         return status;
     }
-
-    public void setStatus(short status) {
-        this.status = status;
-    }
+    
     
 }

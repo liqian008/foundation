@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.bruce.foundation.admin.model.security.AdminUser"%>
+<%@page import="com.bruce.foundation.enumeration.*"%>
 <%
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
@@ -132,7 +132,7 @@
 								<td><%=adminUser.getId()%></td>
 		                        <td><%=adminUser.getUsername()%></td>
 		                        <td><%=adminUser.getNickname()%></td>
-		                        <td>正常</td>
+		                        <td><%=StatusEnum.getName(adminUser.getStatus())%></td>
 		                        <td class='text-center'>
 		                        	<div class="table-controls">
 										<a href="./userEdit?id=<%=adminUser.getId()%>"

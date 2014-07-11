@@ -29,6 +29,7 @@ import com.bruce.foundation.admin.model.security.AdminRole;
 import com.bruce.foundation.admin.service.security.AdminResourceService;
 import com.bruce.foundation.admin.service.security.AdminRoleService;
 import com.bruce.foundation.admin.utils.ConstantsUtil;
+import com.bruce.foundation.enumeration.StatusEnum;
 
 /**
  * [核心处理逻辑]
@@ -65,14 +66,14 @@ public class WebSecurityMetadataSource implements FilterInvocationSecurityMetada
 		resourceMap.clear();
 		
 		//取得当前系统所有可用角色
-		List<AdminRole> adminRoles = this.adminRoleService.getAvailableRoles();
+		List<AdminRole> adminRoles = this.adminRoleService.queryRoles(StatusEnum.ENABLE.getStatus());
 		for (AdminRole adminRole : adminRoles) {
 			//这里的 adminRole 参数为自己定义的，要和 UserDetailsService 中的 SimpleGrantedAuthority 参数对应
 			//adminRole 参数也可以直接使用角色名
 			ConfigAttribute ca = new SecurityConfig(ConstantsUtil.SECURITY_AUTHORITY_PREFIX + adminRole.getId());
 			//取角色有哪些资源的权限
 //			Set<AdminResource> resources = adminRole.getResources();
-			List<AdminResource> resources = adminResourceService.getResourcesByRoleId(adminRole.getId());
+			List<AdminResource> resources = adminResourceService.queryResourcesByRoleId(adminRole.getId(), StatusEnum.ENABLE.getStatus());
 			if(resources!=null&&resources.size()>0){
 				for (AdminResource resource : resources) {
 					String resourceUrl = resource.getUrl();

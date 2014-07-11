@@ -27,6 +27,9 @@ public interface IBaseService<T, Id, TCriteria> {
 	/*查询所有*/
 	public List<T> queryAll();
 	
+	/*查询所有&排序*/
+	public List<T> queryAll(String orderByClause);
+	
 	/*条件查询*/
 	public List<T> queryByCriteria(TCriteria criteria);
 	

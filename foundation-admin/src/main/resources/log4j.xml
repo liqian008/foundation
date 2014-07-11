@@ -52,7 +52,7 @@
 		<level value="OFF"/>		
 	</logger>
  	<logger name="org.springframework">
-		<level value="debug"/>
+		<level value="WARN"/>
 	</logger>
    
    <!-- 日志的总开关设置 包括日志级别和 appender  -->

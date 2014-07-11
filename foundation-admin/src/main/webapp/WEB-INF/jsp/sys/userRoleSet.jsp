@@ -3,9 +3,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.bruce.foundation.admin.model.security.*"%>
+<%@page import="com.bruce.foundation.enumeration.*"%>
 
 <%@ include file="../inc/include_tag.jsp" %>
-
 
 
 <!DOCTYPE html>
@@ -34,26 +34,18 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/forms/validate.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/forms/tags.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/forms/switch.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/forms/uploader/plupload.full.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/forms/uploader/plupload.queue.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/interface/daterangepicker.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/interface/fancybox.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/forms/uploader/plupload.full.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/forms/uploader/plupload.queue.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/daterangepicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/fancybox.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/prettify.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/moment.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/jgrowl.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/interface/datatables.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/datatables.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/colorpicker.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/interface/fullcalendar.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/interface/timepicker.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/interface/collapsible.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/fullcalendar.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/timepicker.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/collapsible.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/application.js"></script>
 </head>
@@ -144,9 +136,13 @@
                                		for(AdminRole loopRole: allRoles){
                                	%>
 									<div class="checkbox checkbox-info">
+										<%
+										//是否禁用
+										boolean disabled = loopRole.getStatus()==null||loopRole.getStatus()==StatusEnum.DISABLE.getStatus();
+										%>
 										<label>
-											<input type="checkbox" name="roleIds" class="styled"  id="roleId_<%=loopRole.getId()%>" value="<%=loopRole.getId()%>" <%=userRoles!=null&&userRoles.contains(loopRole)?"checked='checked'":""%>/>
-											<%=loopRole.getRoleName()%>
+											<input type="checkbox" name="roleIds" class="styled"  id="roleId_<%=loopRole.getId()%>" value="<%=loopRole.getId()%>" <%=userRoles!=null&&userRoles.contains(loopRole)?"checked='checked'":""%> <%=disabled?"disabled='disabled'":""%>/>
+											<%=loopRole.getRoleName()%> — 【状态: <%=StatusEnum.getName(loopRole.getStatus())%>】
 										</label>
 									</div>
 								<%}

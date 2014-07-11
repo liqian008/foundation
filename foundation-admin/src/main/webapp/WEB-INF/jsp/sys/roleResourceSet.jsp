@@ -3,10 +3,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.bruce.foundation.admin.model.security.*"%>
+<%@page import="com.bruce.foundation.enumeration.*"%>
 
 <%@ include file="../inc/include_tag.jsp" %>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,8 +15,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>管理平台</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/css/londinium-theme.min.css" rel="stylesheet"
-	type="text/css">
+<link href="${pageContext.request.contextPath}/css/londinium-theme.min.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/styles.min.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/icons.min.css" rel="stylesheet" type="text/css">
 
@@ -34,26 +32,18 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/forms/validate.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/forms/tags.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/forms/switch.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/forms/uploader/plupload.full.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/forms/uploader/plupload.queue.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/interface/daterangepicker.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/interface/fancybox.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/forms/uploader/plupload.full.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/forms/uploader/plupload.queue.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/daterangepicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/fancybox.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/prettify.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/moment.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/jgrowl.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/interface/datatables.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/datatables.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/colorpicker.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/interface/fullcalendar.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/interface/timepicker.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/plugins/interface/collapsible.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/fullcalendar.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/timepicker.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins/interface/collapsible.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/application.js"></script>
 </head>
@@ -125,9 +115,8 @@
 							</div>
 						</div>
 						
-						
 						<div class="form-group">
-							<label class="col-sm-2 control-label text-right">关联资源: <span class="mandatory">*
+							<label class="col-sm-2 control-label text-right">关联权限资源: <span class="mandatory">*
 							</label>
 							<div class="col-sm-10">
 								<%
@@ -138,11 +127,15 @@
                                	for(AdminResource loopResource: allResources){
                                	%>
                                		<div class="checkbox checkbox-info">
+										<%
+										//是否禁用
+										boolean disabled = loopResource.getStatus()==null||loopResource.getStatus()==StatusEnum.DISABLE.getStatus();
+										%>
 										<label>
-										<input class="styled" type="checkbox" name="resourceIds" id="resourceId_<%=loopResource.getId()%>" value="<%=loopResource.getId()%>" <%=roleResources!=null&&roleResources.contains(loopResource)?"checked='checked'":""%>/>
-										<%=loopResource.getResourceName()%>
-									</label>
-									</div>
+										<input class="styled" type="checkbox" name="resourceIds" id="resourceId_<%=loopResource.getId()%>" value="<%=loopResource.getId()%>" <%=roleResources!=null&&roleResources.contains(loopResource)?"checked='checked'":""%> <%=disabled?"disabled='disabled'":""%>/>
+										<%=loopResource.getResourceName()%> — 【状态: <%=StatusEnum.getName(loopResource.getStatus())%>】
+										</label>
+									</div>  
                                	<%}
                                	}%>
 							</div>

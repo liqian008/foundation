@@ -23,6 +23,7 @@ import com.bruce.foundation.admin.model.security.AdminUser;
 import com.bruce.foundation.admin.service.security.AdminRoleService;
 import com.bruce.foundation.admin.service.security.AdminUserService;
 import com.bruce.foundation.admin.utils.ConstantsUtil;
+import com.bruce.foundation.enumeration.StatusEnum;
 
 /**
  * 实现 UserDetailsService 接口，主要是在 loadUserByUsername 方法中验证一个用户
@@ -60,14 +61,14 @@ public class WebUserDetailsService implements UserDetailsService {
 		//读取当前用户有哪些角色权限
 		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 //		Set<AdminRole> userRoles = userEntity.getRoles();
-		List<AdminRole> userRoles = adminRoleService.getRolesByUserId(userId);
+		List<AdminRole> userRoles = adminRoleService.queryRolesByUserId(userId, StatusEnum.ENABLE.getStatus());
 		
 		if(userRoles!=null&&userRoles.size()>0){
 			for (AdminRole userRole : userRoles) {
 				//这里的 role 参数为自己定义的，要和 SecurityMetadataSource 中的 SecurityConfig 参数对应
 				SimpleGrantedAuthority authority = new SimpleGrantedAuthority(ConstantsUtil.SECURITY_AUTHORITY_PREFIX + userRole.getId());
 				authorities.add(authority);
-			} 
+			}
 		}
 		
 		//如果是超级用户，则添加超级用户的授权

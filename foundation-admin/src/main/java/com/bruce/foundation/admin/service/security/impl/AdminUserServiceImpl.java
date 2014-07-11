@@ -7,9 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bruce.foundation.admin.dao.security.AdminUserMapper;
-import com.bruce.foundation.admin.dao.security.AdminUserRoleMapper;
-import com.bruce.foundation.admin.model.security.AdminRoleResourceCriteria;
+import com.bruce.foundation.admin.mapper.security.AdminUserMapper;
+import com.bruce.foundation.admin.mapper.security.AdminUserRoleMapper;
 import com.bruce.foundation.admin.model.security.AdminUser;
 import com.bruce.foundation.admin.model.security.AdminUserCriteria;
 import com.bruce.foundation.admin.model.security.AdminUserRole;
@@ -63,6 +62,13 @@ public class AdminUserServiceImpl implements AdminUserService{
 	}
 	
 	@Override
+	public List<AdminUser> queryAll(String orderByClause) {
+		AdminUserCriteria criteria = new AdminUserCriteria();
+		criteria.setOrderByClause(orderByClause);
+		return adminUserMapper.selectByExample(criteria);
+	}
+	
+	@Override
 	public List<AdminUser> queryByCriteria(AdminUserCriteria criteria) {
 		return adminUserMapper.selectByExample(criteria);
 	}
@@ -99,7 +105,8 @@ public class AdminUserServiceImpl implements AdminUserService{
 
 
 	@Override
-	public int saveUserRoles(Integer userId, List<Integer> roleIdList) {
+	public int updateUserRoles(Integer userId, List<Integer> roleIdList) {
+		deleteRolesByUserId(userId);
 		if(roleIdList!=null&&roleIdList.size()>0){
 			for(int roleId: roleIdList){
 				AdminUserRole adminUserRole = new AdminUserRole();

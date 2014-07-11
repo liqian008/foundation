@@ -13,8 +13,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.bruce.foundation.admin.dao.security.AdminResourceMapper;
-import com.bruce.foundation.admin.dao.security.AdminRoleResourceMapper;
+import com.bruce.foundation.admin.mapper.security.AdminResourceMapper;
+import com.bruce.foundation.admin.mapper.security.AdminRoleResourceMapper;
 import com.bruce.foundation.admin.model.security.AdminResource;
 import com.bruce.foundation.admin.model.security.AdminResourceCriteria;
 import com.bruce.foundation.admin.model.security.AdminRoleResource;
@@ -71,6 +71,13 @@ public class AdminResourceServiceImpl implements AdminResourceService{
 	public List<AdminResource> queryAll() {
 		return adminResourceMapper.selectByExample(null);
 	}
+	
+	@Override
+	public List<AdminResource> queryAll(String orderByClause) {
+		AdminResourceCriteria criteria = new AdminResourceCriteria();
+		criteria.setOrderByClause(orderByClause);
+		return adminResourceMapper.selectByExample(criteria);
+	}
 
 	@Override
 	public List<AdminResource> queryByCriteria(AdminResourceCriteria criteria) {
@@ -93,35 +100,38 @@ public class AdminResourceServiceImpl implements AdminResourceService{
 	
 	
 	@Override
-	public List<AdminResource> getChildResources(Integer parentResourceId) {
+	public List<AdminResource> queryChildResources(Integer parentResourceId) {
 		AdminResourceCriteria criteria = new AdminResourceCriteria();
 		criteria.createCriteria().andParentIdEqualTo(parentResourceId)
-		.andNavMenuEqualTo(StatusEnum.OPEN.getStatus());
+		.andNavMenuEqualTo(StatusEnum.ENABLE.getStatus());
 		return adminResourceMapper.selectByExample(criteria);
 	}
 	
 	@Override
-    public List<AdminResource> getAvailableResources() {
-	    AdminResourceCriteria criteria = new AdminResourceCriteria();
-        criteria.createCriteria().andStatusEqualTo(StatusEnum.OPEN.getStatus());
+    public List<AdminResource> queryResources(Short status){
+		AdminResourceCriteria criteria = null;
+		if(status!=null){
+		    criteria = new AdminResourceCriteria();
+	        criteria.createCriteria().andStatusEqualTo(status);
+		}
         return adminResourceMapper.selectByExample(criteria);
     }
 	
 	@SuppressWarnings("unchecked")
     @Override
-    public List<AdminResource> getNavResources() {
+    public List<AdminResource> queryNavResources() {
 		// 用户有权限的展示菜单
         List<AdminResource> allResources = null;
-        
-        List<GrantedAuthority> authList = (List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        //获取用户的角色列表
+        List<GrantedAuthority> authorityList = (List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         List<Integer> roleIdList = new ArrayList<Integer>();
-        if (authList != null) {
+        if (authorityList != null) {
             SimpleGrantedAuthority superAuthority = new SimpleGrantedAuthority(
                     ConstantsUtil.SECURITY_AUTHORITY_PREFIX + "SUPER");
-            if (authList.contains(superAuthority)) {// 超级用户取得所有资源菜单
+            if (authorityList.contains(superAuthority)) {// 超级用户取得所有资源菜单
                 allResources = getAllNavResources();
             } else {//非超级用户
-                for (GrantedAuthority authority : authList) {
+                for (GrantedAuthority authority : authorityList) {
                     String authorityName = authority.toString();
                     if (!(ConstantsUtil.SECURITY_AUTHORITY_PREFIX + "SUPER").equals(authorityName)) {
                         String roleIdStr = authorityName.substring(ConstantsUtil.SECURITY_AUTHORITY_PREFIX.length(), authorityName.length());
@@ -129,7 +139,7 @@ public class AdminResourceServiceImpl implements AdminResourceService{
                         roleIdList.add(roleId);
                     }
                 }
-                //普通用户取得有显示权的资源菜单
+                //根据普通用户的角色列表取得有显示权的资源菜单
                 allResources = getNavResourcesByRoleIds(roleIdList);
             }
         }
@@ -142,7 +152,7 @@ public class AdminResourceServiceImpl implements AdminResourceService{
 	
 	
 	/**
-	 * 按层级整理菜单
+	 * 按层级整理菜单，主要为导航显示
 	 * @param allResources
 	 * @return
 	 */
@@ -188,7 +198,7 @@ public class AdminResourceServiceImpl implements AdminResourceService{
 	}
 	
 	@Override
-	public List<AdminResource> getResourcesByRoleId(Integer roleId) {
+	public List<AdminResource> queryResourcesByRoleId(Integer roleId, Short status) {
 		AdminRoleResourceCriteria criteria = new AdminRoleResourceCriteria();
 		criteria.createCriteria().andRoleIdEqualTo(roleId);
 		List<AdminRoleResource> roleResourcesList =  adminRoleResourceMapper.selectByExample(criteria);
@@ -199,7 +209,10 @@ public class AdminResourceServiceImpl implements AdminResourceService{
 				resourceIdList.add(roleResource.getResourceId());
 			}
 			AdminResourceCriteria resourceCriteria = new AdminResourceCriteria();
-			resourceCriteria.createCriteria().andIdIn(resourceIdList);
+			AdminResourceCriteria.Criteria coreCriteria = resourceCriteria.createCriteria().andIdIn(resourceIdList);
+			if(status!=null){
+				coreCriteria.andStatusEqualTo(status);
+			}
 			return adminResourceMapper.selectByExample(resourceCriteria);
 		}
 		return null;
@@ -211,7 +224,7 @@ public class AdminResourceServiceImpl implements AdminResourceService{
 	 */
 	private List<AdminResource> getAllNavResources() {
         AdminResourceCriteria criteria = new AdminResourceCriteria();
-        criteria.createCriteria().andNavMenuEqualTo(StatusEnum.OPEN.getStatus());
+        criteria.createCriteria().andNavMenuEqualTo(StatusEnum.ENABLE.getStatus());
         criteria.setOrderByClause("sort, id");
         return adminResourceMapper.selectByExample(criteria);
     }
@@ -234,8 +247,8 @@ public class AdminResourceServiceImpl implements AdminResourceService{
 			AdminResourceCriteria resourceCriteria = new AdminResourceCriteria();
 			//状态为开启状态 && 导航为显示状态
 			resourceCriteria.createCriteria().andIdIn(resourceIdList)
-			.andNavMenuEqualTo(StatusEnum.OPEN.getStatus())
-			.andStatusEqualTo(StatusEnum.OPEN.getStatus());
+			.andNavMenuEqualTo(StatusEnum.ENABLE.getStatus())
+			.andStatusEqualTo(StatusEnum.ENABLE.getStatus());
 			criteria.setOrderByClause("sort, id");
 			return adminResourceMapper.selectByExample(resourceCriteria);
 		}

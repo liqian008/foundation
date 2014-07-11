@@ -1,4 +1,4 @@
-package com.bruce.foundation.admin.dao.security;
+package com.bruce.foundation.admin.mapper.security;
 
 import com.bruce.foundation.admin.model.security.AdminUser;
 import com.bruce.foundation.admin.model.security.AdminUserCriteria;

@@ -29,31 +29,31 @@
 
 	<bean id="adminUserMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
-			value="com.bruce.foundation.admin.dao.security.AdminUserMapper" />
+			value="com.bruce.foundation.admin.mapper.security.AdminUserMapper" />
 		<property name="sqlSessionFactory" ref="security_sqlSessionFactory" />
 	</bean>
 
 	<bean id="adminRoleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
-			value="com.bruce.foundation.admin.dao.security.AdminRoleMapper" />
+			value="com.bruce.foundation.admin.mapper.security.AdminRoleMapper" />
 		<property name="sqlSessionFactory" ref="security_sqlSessionFactory" />
 	</bean>
 
 	<bean id="adminResourceMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
-			value="com.bruce.foundation.admin.dao.security.AdminResourceMapper" />
+			value="com.bruce.foundation.admin.mapper.security.AdminResourceMapper" />
 		<property name="sqlSessionFactory" ref="security_sqlSessionFactory" />
 	</bean>
 
 	<bean id="adminUserRoleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
-			value="com.bruce.foundation.admin.dao.security.AdminUserRoleMapper" />
+			value="com.bruce.foundation.admin.mapper.security.AdminUserRoleMapper" />
 		<property name="sqlSessionFactory" ref="security_sqlSessionFactory" />
 	</bean>
 
 	<bean id="adminRoleResourceMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
-			value="com.bruce.foundation.admin.dao.security.AdminRoleResourceMapper" />
+			value="com.bruce.foundation.admin.mapper.security.AdminRoleResourceMapper" />
 		<property name="sqlSessionFactory" ref="security_sqlSessionFactory" />
 	</bean>
 

@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bruce.foundation.admin.dao.security.AdminRoleMapper;
-import com.bruce.foundation.admin.dao.security.AdminRoleResourceMapper;
-import com.bruce.foundation.admin.dao.security.AdminUserRoleMapper;
+import com.bruce.foundation.admin.mapper.security.AdminRoleMapper;
+import com.bruce.foundation.admin.mapper.security.AdminRoleResourceMapper;
+import com.bruce.foundation.admin.mapper.security.AdminUserRoleMapper;
 import com.bruce.foundation.admin.model.security.AdminRole;
 import com.bruce.foundation.admin.model.security.AdminRoleCriteria;
 import com.bruce.foundation.admin.model.security.AdminRoleResource;
@@ -69,6 +69,13 @@ public class AdminRoleServiceImpl implements AdminRoleService{
 	}
 	
 	@Override
+	public List<AdminRole> queryAll(String orderByClause) {
+		AdminRoleCriteria criteria = new AdminRoleCriteria();
+		criteria.setOrderByClause(orderByClause);
+		return adminRoleMapper.selectByExample(criteria);
+	}
+	
+	@Override
 	public List<AdminRole> queryByCriteria(AdminRoleCriteria criteria) {
 		return adminRoleMapper.selectByExample(criteria);
 	}
@@ -87,16 +94,19 @@ public class AdminRoleServiceImpl implements AdminRoleService{
 	
 	
 	@Override
-	public List<AdminRole> getAvailableRoles() {
-		AdminRoleCriteria criteria = new AdminRoleCriteria();
-		criteria.createCriteria().andStatusEqualTo(StatusEnum.OPEN.getStatus());
+	public List<AdminRole> queryRoles(Short status) {
+		AdminRoleCriteria criteria = null;
+		if(status!=null){
+			criteria= new AdminRoleCriteria();
+			criteria.createCriteria().andStatusEqualTo(StatusEnum.ENABLE.getStatus());
+		}
 		return adminRoleMapper.selectByExample(criteria);
 	}
 	
 
 
 	@Override
-	public List<AdminRole> getRolesByUserId(Integer userId) {
+	public List<AdminRole> queryRolesByUserId(Integer userId, Short status) {
 		AdminUserRoleCriteria criteria = new AdminUserRoleCriteria();
 		criteria.createCriteria().andUserIdEqualTo(userId);
 		List<AdminUserRole> userRolesList =  adminUserRoleMapper.selectByExample(criteria);
@@ -107,22 +117,28 @@ public class AdminRoleServiceImpl implements AdminRoleService{
 				roleIdList.add(userRole.getRoleId());
 			}
 			AdminRoleCriteria roleCriteria = new AdminRoleCriteria();
-			roleCriteria.createCriteria().andIdIn(roleIdList);
+			AdminRoleCriteria.Criteria subCriteria = roleCriteria.createCriteria().andIdIn(roleIdList);
+			if(status!=null){
+				subCriteria.andStatusEqualTo(status);
+			}
 			return adminRoleMapper.selectByExample(roleCriteria);
 		}
 		return null;
 	}
 
 	@Override
-	public int saveRoleResources(Integer roleId, List<Integer> menuIdList) {
-		if(menuIdList!=null&&menuIdList.size()>0){
-			for(int menuId: menuIdList){
+	public int updateRoleResources(Integer roleId, List<Integer> resourceIdList) {
+		//先清空角色的权限列表
+		deleteResourcesByRoleId(roleId);
+		
+		if(resourceIdList!=null&&resourceIdList.size()>0){
+			for(int menuId: resourceIdList){
 				AdminRoleResource adminRoleResource = new AdminRoleResource();
 				adminRoleResource.setRoleId(roleId);
 				adminRoleResource.setResourceId(menuId);
 				adminRoleResourceMapper.insert(adminRoleResource);
 			}
-			return menuIdList.size();
+			return resourceIdList.size();
 		}
 		return 0;
 	}

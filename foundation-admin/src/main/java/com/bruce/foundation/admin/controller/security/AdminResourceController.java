@@ -44,7 +44,7 @@ public class AdminResourceController extends BaseController {
 		String servletPath = request.getRequestURI();
 		model.addAttribute("servletPath", servletPath);
 		
-		List<AdminResource> parentResources = adminResourceService.getChildResources(0);
+		List<AdminResource> parentResources = adminResourceService.queryChildResources(0);
 		AdminResource rootResource = new AdminResource();
 		rootResource.setId(0);
 		rootResource.setResourceName("--顶级菜单--");
@@ -63,7 +63,7 @@ public class AdminResourceController extends BaseController {
 		
 		AdminResource adminResource = adminResourceService.loadById(id);
 		
-		List<AdminResource> parentResources = adminResourceService.getChildResources(0);
+		List<AdminResource> parentResources = adminResourceService.queryChildResources(0);
 		AdminResource rootResource = new AdminResource();
 		rootResource.setId(0);
 		rootResource.setResourceName("--顶级菜单--");
@@ -106,7 +106,7 @@ public class AdminResourceController extends BaseController {
 		//刷新菜单资源
 		//adminResourceService.reloadResourcesForUser(request);
 		//获取导航栏数据
-        List<AdminResource> navResourceList = adminResourceService.getNavResources();
+        List<AdminResource> navResourceList = adminResourceService.queryNavResources();
         request.getSession().setAttribute("navResourceList", navResourceList);
 		return "forward:/home/operationRedirect";
 	}

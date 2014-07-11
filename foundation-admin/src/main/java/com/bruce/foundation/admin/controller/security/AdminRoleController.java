@@ -51,7 +51,7 @@ public class AdminRoleController extends BaseController {
 		String servletPath = request.getRequestURI();
 		model.addAttribute("servletPath", servletPath);
 		
-		adminRole.setStatus(StatusEnum.OPEN.getStatus());
+		adminRole.setStatus(StatusEnum.ENABLE.getStatus());
 		model.addAttribute("adminRole", adminRole);
 		return "sys/roleEdit";
 	}
@@ -110,7 +110,13 @@ public class AdminRoleController extends BaseController {
 		return "forward:/home/operationRedirect";
 	}
 	
-	
+	/**
+	 * 进入角色权限关联界面
+	 * @param model
+	 * @param roleId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/roleResourceSet")
 	public String roleResourceSet(Model model,int roleId, HttpServletRequest request) {
 		String servletPath = request.getRequestURI();
@@ -119,18 +125,25 @@ public class AdminRoleController extends BaseController {
 		AdminRole adminRole = adminRoleService.loadById(roleId);
 		
 		//取所有资源
-		List<AdminResource> allResources = adminResourceService.queryAll();
+		List<AdminResource> allResources = adminResourceService.queryResources(null);
 		//取角色拥有的资源
-		List<AdminResource> roleResources = adminResourceService.getResourcesByRoleId(roleId);
+		List<AdminResource> roleResources = adminResourceService.queryResourcesByRoleId(roleId, null);
 		
 		model.addAttribute("adminRole", adminRole);
 		model.addAttribute("allResources", allResources);
 		model.addAttribute("roleResources", roleResources);
 		
-		
 		return "sys/roleResourceSet";
 	}
 	
+	/**
+	 * 关联角色&权限
+	 * @param model
+	 * @param roleId
+	 * @param resourceIds
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/saveRoleResource", method = RequestMethod.POST)
 	public String saveRoleResource(Model model,  Integer roleId, Integer[] resourceIds, HttpServletRequest request) {
 		String servletPath = request.getRequestURI();
@@ -138,10 +151,10 @@ public class AdminRoleController extends BaseController {
 		
 		int result = 0;
 		if(roleId!=null && roleId>0){
-		    adminRoleService.deleteResourcesByRoleId(roleId);
+//		    adminRoleService.deleteResourcesByRoleId(roleId);
 		    if(resourceIds!=null && resourceIds.length>0){
-			    List<Integer> menuIdList = Arrays.asList(resourceIds);
-			    result = adminRoleService.saveRoleResources(roleId, menuIdList);
+			    List<Integer> resourceIdList = Arrays.asList(resourceIds);
+			    result = adminRoleService.updateRoleResources(roleId, resourceIdList);
 		    }
 		}
 		model.addAttribute("redirectUrl", "../sys/roles");

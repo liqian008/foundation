@@ -55,7 +55,7 @@ public class AdminUserController extends BaseController {
 		String servletPath = request.getRequestURI();
 		model.addAttribute("servletPath", servletPath);
 		
-		adminUser.setStatus(StatusEnum.OPEN.getStatus());
+		adminUser.setStatus(StatusEnum.ENABLE.getStatus());
 		model.addAttribute("adminUser", adminUser);
 		return "sys/userEdit";
 	}
@@ -117,7 +117,13 @@ public class AdminUserController extends BaseController {
 		return "forward:/home/operationRedirect";
 	}
 	
-	
+	/**
+	 * 进入用户角色关联界面
+	 * @param model
+	 * @param userId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/userRoleSet")
 	public String userRoleSet(Model model,int userId, HttpServletRequest request) {
 		String servletPath = request.getRequestURI();
@@ -125,9 +131,9 @@ public class AdminUserController extends BaseController {
 		//取用户
 		AdminUser adminUser = adminUserService.loadById(userId);
 		//取所有正常的角色(status=1)
-		List<AdminRole> allRoles = adminRoleService.getAvailableRoles();
+		List<AdminRole> allRoles = adminRoleService.queryRoles(null);
 		//取用户拥有的角色
-		List<AdminRole> userRoles = adminRoleService.getRolesByUserId(userId);
+		List<AdminRole> userRoles = adminRoleService.queryRolesByUserId(userId, null);
 		
 		model.addAttribute("adminUser", adminUser);
 		model.addAttribute("allRoles", allRoles);
@@ -136,6 +142,14 @@ public class AdminUserController extends BaseController {
 		return "sys/userRoleSet";
 	}
 	
+	/**
+	 * 关联用户&角色
+	 * @param model
+	 * @param userId
+	 * @param roleIds
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/saveUserRole", method = RequestMethod.POST)
     public String saveUserRole(Model model, Integer userId, Integer[] roleIds, HttpServletRequest request) {
         String servletPath = request.getRequestURI();
@@ -143,10 +157,10 @@ public class AdminUserController extends BaseController {
         
         int result = 0;
         if(userId!=null && userId>0){
-        	adminUserService.deleteRolesByUserId(userId);
+//        	adminUserService.deleteRolesByUserId(userId);
         	if(roleIds!=null && roleIds.length>0){
         		List<Integer> roleIdList = Arrays.asList(roleIds);
-        		result = adminUserService.saveUserRoles(userId, roleIdList);
+        		result = adminUserService.updateUserRoles(userId, roleIdList);
         	}
         }
         

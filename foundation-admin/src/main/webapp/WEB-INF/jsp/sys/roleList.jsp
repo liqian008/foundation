@@ -3,10 +3,10 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.bruce.foundation.admin.model.security.AdminRole"%>
+<%@page import="com.bruce.foundation.enumeration.*"%>
 <%
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -130,7 +130,7 @@
 							<tr>
 								<td><%=adminRole.getId()%></td>
 		                        <td><%=adminRole.getRoleName()%></td>
-		                        <td>正常</td>
+		                        <td><%=StatusEnum.getName(adminRole.getStatus())%></td>
 		                        <td><%=sdf.format(adminRole.getUpdateTime())%></td>
 		                        <td class='text-center'>
 		                        	<div class="table-controls">

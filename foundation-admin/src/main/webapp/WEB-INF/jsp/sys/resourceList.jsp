@@ -3,6 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.bruce.foundation.admin.model.security.AdminResource"%>
+<%@page import="com.bruce.foundation.enumeration.*"%>
 
 <%
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -138,7 +139,7 @@
 		                        <td><%=adminResource.getParentId()%></td>
 		                        <td><%=adminResource.getUrl()%></td>
 		                        <td><%=adminResource.getSort()%></td>
-		                        <td>正常</td>
+		                        <td><%=StatusEnum.getName(adminResource.getStatus())%></td>
 		                        <td><%=sdf.format(adminResource.getUpdateTime())%></td>
 		                        <td class='text-center'>
 		                        	<div class="table-controls">

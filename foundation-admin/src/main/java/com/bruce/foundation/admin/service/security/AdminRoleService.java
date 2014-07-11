@@ -8,13 +8,17 @@ import com.bruce.foundation.admin.model.security.AdminRoleCriteria;
 import com.bruce.foundation.service.IBaseService;
 
 public interface AdminRoleService extends IBaseService<AdminRole, Integer, AdminRoleCriteria>{
-
-	public List<AdminRole> getRolesByUserId(Integer userId);
-
-	public List<AdminRole> getAvailableRoles();
-
-	public int saveRoleResources(Integer roleId, List<Integer> menuIdList);
 	
+	/*获取所有可用的角色*/
+	public List<AdminRole> queryRoles(Short status);
+	
+	/*获取指定用户的所有角色*/
+	public List<AdminRole> queryRolesByUserId(Integer userId, Short status);
+	
+	/*更新指定角色&权限的关联关系*/
+	public int updateRoleResources(Integer roleId, List<Integer> resourceIdList);
+	
+	/*取消指定角色的所有权限*/
 	public int deleteResourcesByRoleId(Integer roleId);
 		
 }
