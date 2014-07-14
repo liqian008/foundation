@@ -23,7 +23,7 @@ import com.bruce.foundation.admin.security.WebSecurityMetadataSource;
 import com.bruce.foundation.admin.service.security.AdminResourceService;
 import com.bruce.foundation.admin.utils.ConstantsUtil;
 import com.bruce.foundation.enumeration.StatusEnum;
-import com.bruce.foundation.model.PagingResult;
+import com.bruce.foundation.model.paging.PagingResult;
 
 @Service
 public class AdminResourceServiceImpl implements AdminResourceService{ 
@@ -87,15 +87,28 @@ public class AdminResourceServiceImpl implements AdminResourceService{
 	@Override
 	public List<AdminResource> fallloadByCriteria(int pageSize,
 			AdminResourceCriteria criteria) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public PagingResult<AdminResource> pagingByCriteria(int pageNo,
 			int pageSize, AdminResourceCriteria criteria) {
-		// TODO Auto-generated method stub
-		return null;
+		pageNo = pageNo<=0?1:pageNo;//确保pageNo合法
+		pageSize = pageNo<=0?20:pageSize;//确保pageSize合法
+		int offset = (pageNo-1)*pageSize;
+		
+		//构造查询条件
+		if(criteria==null){
+			criteria = new AdminResourceCriteria();
+		}
+		
+		criteria.setLimitOffset(offset);
+		criteria.setLimitRows(pageSize);
+		
+		int count = adminResourceMapper.countByExample(criteria);
+		List<AdminResource> dataList = adminResourceMapper.selectByExample(criteria);
+		//返回分页数据
+		return new PagingResult<AdminResource>(pageNo, pageSize, count, dataList);
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.bruce.foundation.admin.utils;
 
+@Deprecated
 public class PageNavUtil {
 
 	public static String getPageNavHtml(int currentPage, int pageSize,

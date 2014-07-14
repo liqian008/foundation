@@ -2,9 +2,9 @@ package com.bruce.foundation.service;
 
 import java.util.List;
 
-import com.bruce.foundation.model.PagingResult;
+import com.bruce.foundation.model.paging.PagingResult;
 
-public interface IBaseService<T, Id, TCriteria> {
+public interface IFoundationService<T, Id, TCriteria> {
 	
 	/*新增*/
 	public int save(T t);

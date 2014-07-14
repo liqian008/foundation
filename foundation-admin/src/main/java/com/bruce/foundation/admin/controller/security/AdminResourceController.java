@@ -1,6 +1,7 @@
 package com.bruce.foundation.admin.controller.security;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bruce.foundation.admin.controller.BaseController;
 import com.bruce.foundation.admin.model.security.AdminResource;
+import com.bruce.foundation.admin.model.security.AdminResourceCriteria;
 import com.bruce.foundation.admin.service.security.AdminResourceService;
 import com.bruce.foundation.admin.utils.ValidatorUtil;
+import com.bruce.foundation.model.paging.PagingResult;
 
 
 @Controller
@@ -28,7 +32,16 @@ public class AdminResourceController extends BaseController {
 	
 	@Autowired
 	private AdminResourceService adminResourceService;
+
+	private static final int pageSize = 5;
 	
+	/**
+	 * 查询全部
+	 * @param model
+	 * @param resourceName
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/resources")
 	public String resourceList(Model model, String resourceName, HttpServletRequest request) {
 		String servletPath = request.getRequestURI();
@@ -37,6 +50,36 @@ public class AdminResourceController extends BaseController {
 		List<AdminResource> adminResourceList = adminResourceService.queryAll();
 		model.addAttribute("adminResourceList", adminResourceList);
 		return "sys/resourceList";
+	}
+	
+	/**
+	 * 分页方式查询
+	 * @param model
+	 * @param pageNo
+	 * @param pageSize
+	 * @param request
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/resourcesPaging")
+	public String resourcesPaging(Model model, @RequestParam(defaultValue="1")int pageNo, HttpServletRequest request) {
+		String servletPath = request.getRequestURI();
+		model.addAttribute("servletPath", servletPath);
+		
+		AdminResourceCriteria criteria =  null;
+		//TODO 根据模块的需求构造查询条件
+		
+		
+		PagingResult<AdminResource> adminResourceList = adminResourceService.pagingByCriteria(pageNo, pageSize , criteria);
+		if(adminResourceList!=null){
+			adminResourceList.setRequestUri(request.getRequestURI());
+			
+			HashMap<String, Object> queryMap = new HashMap();
+			queryMap.putAll(request.getParameterMap());
+			adminResourceList.setQueryMap(queryMap);
+			model.addAttribute("adminResourceList", adminResourceList);
+		}
+		return "sys/resourceListPaging";
 	}
 	
 	@RequestMapping("/resourceAdd")

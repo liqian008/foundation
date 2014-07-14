@@ -14,7 +14,7 @@ import com.bruce.foundation.admin.model.security.AdminUserCriteria;
 import com.bruce.foundation.admin.model.security.AdminUserRole;
 import com.bruce.foundation.admin.model.security.AdminUserRoleCriteria;
 import com.bruce.foundation.admin.service.security.AdminUserService;
-import com.bruce.foundation.model.PagingResult;
+import com.bruce.foundation.model.paging.PagingResult;
 
 @Service
 public class AdminUserServiceImpl implements AdminUserService{ 

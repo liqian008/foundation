@@ -107,7 +107,6 @@ public class DateUtil {
 		try {
 			resultDate = formatter.parse(timeString);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resultDate;

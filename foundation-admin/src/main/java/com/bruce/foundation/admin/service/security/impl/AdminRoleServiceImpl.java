@@ -19,7 +19,7 @@ import com.bruce.foundation.admin.model.security.AdminUserRole;
 import com.bruce.foundation.admin.model.security.AdminUserRoleCriteria;
 import com.bruce.foundation.admin.service.security.AdminRoleService;
 import com.bruce.foundation.enumeration.StatusEnum;
-import com.bruce.foundation.model.PagingResult;
+import com.bruce.foundation.model.paging.PagingResult;
 
 @Service
 public class AdminRoleServiceImpl implements AdminRoleService{ 
