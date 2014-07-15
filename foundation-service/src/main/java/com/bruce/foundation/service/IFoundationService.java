@@ -2,8 +2,15 @@ package com.bruce.foundation.service;
 
 import java.util.List;
 
-import com.bruce.foundation.model.paging.PagingResult;
 
+/**
+ * 基础数据操作的service接口
+ * @author liqian
+ *
+ * @param <T>
+ * @param <Id>
+ * @param <TCriteria>
+ */
 public interface IFoundationService<T, Id, TCriteria> {
 	
 	/*新增*/
@@ -33,11 +40,5 @@ public interface IFoundationService<T, Id, TCriteria> {
 	/*条件查询*/
 	public List<T> queryByCriteria(TCriteria criteria);
 	
-	/*瀑布流方式加载条件查询*/
-	public List<T> fallloadByCriteria(int pageSize, TCriteria criteria);
-	
-	/*分页方式进行条件查询*/
-	public PagingResult<T> pagingByCriteria(int pageNo, int pageSize, TCriteria criteria);
-
 
 }

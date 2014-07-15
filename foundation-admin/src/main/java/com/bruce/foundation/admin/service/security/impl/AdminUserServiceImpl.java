@@ -74,17 +74,6 @@ public class AdminUserServiceImpl implements AdminUserService{
 	}
 
 	@Override
-	public List<AdminUser> fallloadByCriteria(int pageSize, AdminUserCriteria criteria) {
-		return null;
-	}
-
-	@Override
-	public PagingResult<AdminUser> pagingByCriteria(int pageNo, int pageSize, AdminUserCriteria criteria) {
-		return null;
-	}
-	
-
-	@Override
 	public AdminUser loadUserByUsername(String username) {
 		AdminUserCriteria criteria = new AdminUserCriteria();
 		criteria.createCriteria().andUsernameEqualTo(username);

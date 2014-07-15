@@ -80,18 +80,6 @@ public class AdminRoleServiceImpl implements AdminRoleService{
 		return adminRoleMapper.selectByExample(criteria);
 	}
 
-	@Override
-	public List<AdminRole> fallloadByCriteria(int pageSize,
-			AdminRoleCriteria criteria) {
-		return null;
-	}
-
-	@Override
-	public PagingResult<AdminRole> pagingByCriteria(int pageNo, int pageSize,
-			AdminRoleCriteria criteria) {
-		return null;
-	}
-	
 	
 	@Override
 	public List<AdminRole> queryRoles(Short status) {
