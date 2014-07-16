@@ -6,7 +6,7 @@ package com.bruce.foundation.macp.api.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.bruce.foundation.macp.api.entity.ApiResultCode;
+import com.bruce.foundation.macp.api.entity.ErrorCode;
 
 
 /**

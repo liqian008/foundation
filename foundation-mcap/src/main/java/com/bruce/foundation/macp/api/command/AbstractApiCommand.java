@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.bruce.foundation.macp.api.entity.ApiCommandContext;
 import com.bruce.foundation.macp.api.entity.ApiResult;
-import com.bruce.foundation.macp.api.entity.ApiResultCode;
+import com.bruce.foundation.macp.api.entity.ErrorCode;
 import com.bruce.foundation.macp.api.entity.ClientInfo;
 import com.bruce.foundation.macp.api.utils.StatLogUtil;
 import com.bruce.foundation.macp.constants.HttpConstants;
@@ -80,7 +80,7 @@ public abstract class AbstractApiCommand implements ApiCommand {
         // ======statAccessLog 统计用 start======
         String extra2 = "";
         if ("user.login".equals(methodName)) {
-            extra2 = apiResult.getCode() == ApiResultCode.SUCCESS ? "success" : "failure";
+            extra2 = apiResult.getCode() == ErrorCode.SUCCESS ? "success" : "failure";
         }
         String statLogStr = StatLogUtil.log(statAccessLogger, System.currentTimeMillis(),
                 methodName, context.getUserId() + "", context.getMcpAppInfo().getAppId() + "",

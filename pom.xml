@@ -9,7 +9,7 @@
 
 	<modules>
 		<module>foundation-admin</module>
-		<module>foundation-mcas</module>
+		<module>foundation-mcap</module>
 		<module>foundation-model</module>
 		<module>foundation-service</module>
 		<module>foundation-util</module>

@@ -102,7 +102,6 @@ public class McpResponse {
                 // 默认json格式
                 this.writeJSON(apiResult, os);
             }
-
             os.flush();
         } catch (IOException e) {
             logger.error("McpResponse.write", e);
@@ -121,7 +120,7 @@ public class McpResponse {
             throws UnsupportedEncodingException, IOException {
         //        logger.debug("apiResult----------" + apiResult);
 
-        if (apiResult.getCode() == ApiResultCode.SUCCESS) {
+        if (apiResult.getCode() == ErrorCode.SUCCESS) {
             Object obj = apiResult.getData();
             String rt = BuildUtils.buildJSONResult(obj);
             if (logger.isDebugEnabled()) {

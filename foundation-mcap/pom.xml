@@ -16,6 +16,12 @@
 	<url>http://maven.apache.org</url>
 	
 	<dependencies>
+		<!-- foundation service -->
+		<dependency>
+			<groupId>com.bruce</groupId>
+			<artifactId>foundation-model</artifactId>
+			<version>1.0.0-BUILD-SNAPSHOT</version>
+		</dependency>
 		
 		<!-- Spring -->
 		<dependency>

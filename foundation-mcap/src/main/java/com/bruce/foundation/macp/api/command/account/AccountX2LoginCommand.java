@@ -15,7 +15,7 @@ import org.springframework.util.Assert;
 import com.bruce.foundation.macp.api.command.AbstractApiCommand;
 import com.bruce.foundation.macp.api.entity.ApiCommandContext;
 import com.bruce.foundation.macp.api.entity.ApiResult;
-import com.bruce.foundation.macp.api.entity.ApiResultCode;
+import com.bruce.foundation.macp.api.entity.ErrorCode;
 import com.bruce.foundation.macp.api.utils.BizErrorMapperUtils;
 import com.bruce.foundation.macp.passport.entity.UserPassport;
 import com.bruce.foundation.macp.passport.service.PassportService;
@@ -68,7 +68,7 @@ public class AccountX2LoginCommand extends AbstractApiCommand implements Initial
         UserPassport userPassport = null;
         try {
             if (StringUtils.isEmpty(token) || StringUtils.isEmpty(identity)){
-                return new ApiResult(ApiResultCode.E_SYS_PARAM);
+                return new ApiResult(ErrorCode.E_SYS_PARAM);
             }
             
             // 安全限制长度，防止刷暴缓存
@@ -85,14 +85,14 @@ public class AccountX2LoginCommand extends AbstractApiCommand implements Initial
             }
 
             if (loginResult == null) {
-                return new ApiResult(ApiResultCode.E_BIZ_LOGIN_FAILED);
+                return new ApiResult(ErrorCode.E_BIZ_LOGIN_FAILED);
             }
             // 兼容底层的错误
             if (loginResult.getCode() != ErrorCode.SystemSuccess) {
                 return new ApiResult(BizErrorMapperUtils.getMcpErrorCode(loginResult.getCode()));
             }
             if (loginResult.getUserId() == 0) {
-                return new ApiResult(ApiResultCode.E_BIZ_LOGIN_FAILED);
+                return new ApiResult(ErrorCode.E_BIZ_LOGIN_FAILED);
             }
 
             if (logger.isDebugEnabled()) {
@@ -117,7 +117,7 @@ public class AccountX2LoginCommand extends AbstractApiCommand implements Initial
             String ticket = passportService.createTicket(userPassport);
             if (StringUtils.isEmpty(ticket)) {
                 logger.error(String.format("%s ticket is empty!", this.getClass().getName()));
-                return new ApiResult(ApiResultCode.E_BIZ_LOGIN_FAILED);
+                return new ApiResult(ErrorCode.E_BIZ_LOGIN_FAILED);
             }
             userPassport.setTicket(ticket);
 
@@ -131,7 +131,7 @@ public class AccountX2LoginCommand extends AbstractApiCommand implements Initial
         }
 
         // 返回结果
-        apiResult = new ApiResult(ApiResultCode.SUCCESS, buildResult(userPassport, loginResult));
+        apiResult = new ApiResult(ErrorCode.SUCCESS, buildResult(userPassport, loginResult));
         return apiResult;
     }
 

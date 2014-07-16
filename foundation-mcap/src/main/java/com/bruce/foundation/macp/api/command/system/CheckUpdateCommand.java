@@ -2,7 +2,7 @@
  * $Id $
  * Copyright 2009-2011 Oak Pacific Interactive. All rights reserved.
  */
-package com.bruce.foundation.macp.api.command.test;
+package com.bruce.foundation.macp.api.command.system;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,17 +20,17 @@ import com.bruce.foundation.macp.api.entity.ErrorCode;
  * @author liqian
  * 
  */
-public class TestCommand extends AbstractApiCommand implements InitializingBean {
+public class CheckUpdateCommand extends AbstractApiCommand implements InitializingBean {
 
-    private static final Log logger = LogFactory.getLog(TestCommand.class);
+    private static final Log logger = LogFactory.getLog(CheckUpdateCommand.class);
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        //Assert.notNull(commandLookupService, "commandLookupService is required!");
     }
 
     @Override
     public ApiResult onExecute(ApiCommandContext context) {
+    	//检查版本更新
         String testParamA = context.getStringParams().get("testParamA");
         String testParamB = context.getStringParams().get("testParamB");
         String testParamC = context.getStringParams().get("testParamC");

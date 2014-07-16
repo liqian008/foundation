@@ -15,7 +15,7 @@
 	</properties>
 
 	<dependencies>
-		<!-- designer -->
+		<!-- foundation service -->
 		<dependency>
 			<groupId>com.bruce</groupId>
 			<artifactId>foundation-service</artifactId>

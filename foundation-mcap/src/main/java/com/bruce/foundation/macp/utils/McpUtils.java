@@ -29,7 +29,7 @@ import org.springframework.remoting.RemoteConnectFailureException;
 import org.springframework.remoting.RemoteLookupFailureException;
 
 import com.bruce.foundation.macp.api.entity.ApiResult;
-import com.bruce.foundation.macp.api.entity.ApiResultCode;
+import com.bruce.foundation.macp.api.entity.ErrorCode;
 import com.bruce.foundation.macp.api.entity.RequestBaseContext;
 import com.bruce.foundation.macp.constants.HttpConstants;
 import com.google.gson.Gson;
@@ -440,16 +440,16 @@ public class McpUtils {
     public static int handleExp(Exception e) {
         if (e == null) {
             logger.error("[Exception]", e);
-            return ApiResultCode.E_SYS_UNKNOWN;
+            return ErrorCode.E_SYS_UNKNOWN;
         } else if (e instanceof RemoteConnectFailureException) {
             logger.error("[Exception]", e);
-            return ApiResultCode.E_SYS_RPC_ERROR;
+            return ErrorCode.E_SYS_RPC_ERROR;
         } else if (e instanceof RemoteLookupFailureException) {
             logger.error("[Exception]", e);
-            return ApiResultCode.E_SYS_RPC_ERROR;
+            return ErrorCode.E_SYS_RPC_ERROR;
         } else {
             logger.error("[Exception]", e);
-            return ApiResultCode.E_SYS_UNKNOWN;
+            return ErrorCode.E_SYS_UNKNOWN;
         }
     }
 }

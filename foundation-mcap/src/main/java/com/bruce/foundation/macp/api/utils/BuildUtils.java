@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.DelegatingMessageSource;
 
 import com.bruce.foundation.macp.api.entity.ApiResult;
-import com.bruce.foundation.macp.api.entity.ApiResultCode;
+import com.bruce.foundation.macp.api.entity.ErrorCode;
 import com.bruce.foundation.macp.constants.McpConstants;
 import com.bruce.foundation.macp.utils.McpUtils;
 
@@ -53,7 +53,7 @@ public class BuildUtils {
         }
         boolean isEmptyData = apiResult.getData() == null || "".equals(apiResult.getData());
         // 填充提示或错误消息 sys级的 对data判空是为了兼容antispam的错误是直接返回错误msg的
-        if (apiResult.getCode() != ApiResultCode.SUCCESS
+        if (apiResult.getCode() != ErrorCode.SUCCESS
                 && isEmptyData) {
             fillMessage(apiResult, messageSource, language);
         }
