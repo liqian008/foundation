@@ -39,7 +39,7 @@ public class TestCommand extends AbstractApiCommand implements InitializingBean 
         rt.put("testParamA", testParamA);
         rt.put("testParamB", testParamB);
         rt.put("testParamC", testParamC);
-        return new ApiResult(ErrorCode.SUCCESS, rt);
+        return new ApiResult(rt);
     }
 
     public static void main(String[] s) {

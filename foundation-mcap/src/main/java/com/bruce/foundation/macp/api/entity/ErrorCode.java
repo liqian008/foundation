@@ -10,8 +10,10 @@ package com.bruce.foundation.macp.api.entity;
  */
 public final class ErrorCode {
 
-    // 成功
-    public final static int SUCCESS = 0;
+    // 请求成功
+    public final static int RESULT_SUCCESS = 1;
+    // 请求失败
+    public final static int RESULT_FAILED = 0;
 
     // <1000的为系统错误
     public final static int E_SYS_UNKNOWN = 1;// unknown

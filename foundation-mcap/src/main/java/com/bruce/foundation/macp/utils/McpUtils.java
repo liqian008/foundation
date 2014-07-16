@@ -423,33 +423,33 @@ public class McpUtils {
         return rtLang.toString();
     }
 
-    /**
-     * 为了兼容恶心的antispam文案自定义，破坏了和谐和统一。
-     * 
-     * @param e
-     * @return
-     */
-    public static ApiResult handleExpWithMsg(Exception e) {
-        int code = handleExp(e);
-//        if (code == ApiResultCode.E_BIZ_RPC_ILLEGAL_CONTENT) {
-//            return new ApiResult(code, ILLEGAL_CONTENT_MSG);
+//    /**
+//     * 为了兼容恶心的antispam文案自定义，破坏了和谐和统一。
+//     * 
+//     * @param e
+//     * @return
+//     */
+//    public static ApiResult handleExpWithMsg(Exception e) {
+//        int code = handleExp(e);
+////        if (code == ApiResultCode.E_BIZ_RPC_ILLEGAL_CONTENT) {
+////            return new ApiResult(code, ILLEGAL_CONTENT_MSG);
+////        }
+//        return new ApiResult(code);
+//    }
+//    
+//    public static int handleExp(Exception e) {
+//        if (e == null) {
+//            logger.error("[Exception]", e);
+//            return ErrorCode.E_SYS_UNKNOWN;
+//        } else if (e instanceof RemoteConnectFailureException) {
+//            logger.error("[Exception]", e);
+//            return ErrorCode.E_SYS_RPC_ERROR;
+//        } else if (e instanceof RemoteLookupFailureException) {
+//            logger.error("[Exception]", e);
+//            return ErrorCode.E_SYS_RPC_ERROR;
+//        } else {
+//            logger.error("[Exception]", e);
+//            return ErrorCode.E_SYS_UNKNOWN;
 //        }
-        return new ApiResult(code);
-    }
-    
-    public static int handleExp(Exception e) {
-        if (e == null) {
-            logger.error("[Exception]", e);
-            return ErrorCode.E_SYS_UNKNOWN;
-        } else if (e instanceof RemoteConnectFailureException) {
-            logger.error("[Exception]", e);
-            return ErrorCode.E_SYS_RPC_ERROR;
-        } else if (e instanceof RemoteLookupFailureException) {
-            logger.error("[Exception]", e);
-            return ErrorCode.E_SYS_RPC_ERROR;
-        } else {
-            logger.error("[Exception]", e);
-            return ErrorCode.E_SYS_UNKNOWN;
-        }
-    }
+//    }
 }

@@ -60,4 +60,8 @@ public class CommonResultBean{
 		this.errorcode = errorcode;
 	}
     
+	@Override
+    public String toString() {
+        return "ApiResult [result=" + result + ",errorcode=" + errorcode + ",message=" + message + ", data=" + data + "]";
+    }
 }

@@ -14,40 +14,65 @@ public class ApiResult implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int code;
+    private int result;
+    
+    private int errorcode;
+
+    private String message;
 
     private Object data;
 
-    public ApiResult(int resultCode, Object data) {
+    public ApiResult() { 
+		super();
+	}
+    
+    public ApiResult(int errorcode) {
         super();
-        this.code = resultCode;
+        this.result = ErrorCode.RESULT_FAILED;
+        this.errorcode = errorcode;
+    }
+    
+    public ApiResult(Object data) {
+        super();
+        this.result = ErrorCode.RESULT_SUCCESS;
         this.data = data;
     }
+    
 
-    public ApiResult(int resultCode) {
-        super();
-        this.code = resultCode;
-        this.data = "";
-    }
+	public int getResult() {
+		return result;
+	}
 
-    public int getCode() {
-        return code;
-    }
+	public void setResult(int result) {
+		this.result = result;
+	}
 
-    public void setCode(int code) {
-        this.code = code;
-    }
+	public int getErrorcode() {
+		return errorcode;
+	}
 
-    public Object getData() {
-        return data;
-    }
+	public void setErrorcode(int errorcode) {
+		this.errorcode = errorcode;
+	}
 
-    public void setData(Object data) {
-        this.data = data;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    @Override
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public Object getData() {
+		return data;
+	}
+
+	public void setData(Object data) {
+		this.data = data;
+	}
+
+	@Override
     public String toString() {
-        return "ApiResult [code=" + code + ", data=" + data + "]";
+        return "ApiResult [result=" + result + ",errorcode=" + errorcode + ",message=" + message + ", data=" + data + "]";
     }
 }

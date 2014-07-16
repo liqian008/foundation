@@ -78,20 +78,20 @@ public abstract class AbstractApiCommand implements ApiCommand {
         this.afterExecute(context, apiResult);
 
         // ======statAccessLog 统计用 start======
-        String extra2 = "";
-        if ("user.login".equals(methodName)) {
-            extra2 = apiResult.getCode() == ErrorCode.SUCCESS ? "success" : "failure";
-        }
-        String statLogStr = StatLogUtil.log(statAccessLogger, System.currentTimeMillis(),
-                methodName, context.getUserId() + "", context.getMcpAppInfo().getAppId() + "",
-                clientInfo, clientIp, "T2Server", identifier, "1", value + "", extra1, extra2, "",
-                "", apiResult.getCode() + "", "");
+//        String extra2 = "";
+//        if ("user.login".equals(methodName)) {
+//            extra2 = apiResult.getCode() == ErrorCode.SUCCESS ? "success" : "failure";
+//        }
+//        String statLogStr = StatLogUtil.log(statAccessLogger, System.currentTimeMillis(),
+//                methodName, context.getUserId() + "", context.getMcpAppInfo().getAppId() + "",
+//                clientInfo, clientIp, "T2Server", identifier, "1", value + "", extra1, extra2, "",
+//                "", apiResult.getCode() + "", "");
         // ======statAccessLog 统计用 end======
 
         // ======userAccessLog mcp自用统计 start======
         // 在stataccess统计的基础上添加了返回结果和消耗时间，也是以“|”分割
-        userAccesslogger.info(statLogStr + apiResult.getCode() + "|"
-                + (System.currentTimeMillis() - starTime));
+//        userAccesslogger.info(statLogStr + apiResult.getCode() + "|"
+//                + (System.currentTimeMillis() - starTime));
         // ======userAccessLog mcp自用统计 end======
 
         //        currentApiCommandContextHolder.remove();

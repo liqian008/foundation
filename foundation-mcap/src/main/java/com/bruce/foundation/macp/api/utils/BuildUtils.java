@@ -47,49 +47,49 @@ public class BuildUtils {
         return result;
     }
     
-    public static ApiResult buildX2ApiResult(ApiResult apiResult, DelegatingMessageSource messageSource, String language) {
-        if (apiResult == null || messageSource == null || StringUtils.isEmpty(language)) {
-            return apiResult;
-        }
-        boolean isEmptyData = apiResult.getData() == null || "".equals(apiResult.getData());
-        // 填充提示或错误消息 sys级的 对data判空是为了兼容antispam的错误是直接返回错误msg的
-        if (apiResult.getCode() != ErrorCode.SUCCESS
-                && isEmptyData) {
-            fillMessage(apiResult, messageSource, language);
-        }
-        
-//        if (!isEmptyData && apiResult.getData() instanceof BaseResult) {
-//            // 服务有返回时， 填充提示或错误消息 biz级的
-//            ErrorCode bizResultCode = getBizResultCode(apiResult);
-//            if (bizResultCode != ErrorCode.SystemSuccess) {
-//                apiResult.setCode(BizErrorMapperUtils.getMcpErrorCode(bizResultCode));
-//                fillMessage(apiResult, messageSource, language);
-//            } else {
-//                // 过滤掉服务端的errorcode
-//                filterBizResult(apiResult);                    
-//            }
+//    public static ApiResult buildX2ApiResult(ApiResult apiResult, DelegatingMessageSource messageSource, String language) {
+//        if (apiResult == null || messageSource == null || StringUtils.isEmpty(language)) {
+//            return apiResult;
 //        }
-        return apiResult;
-    }
-    
-    private static void fillMessage(ApiResult apiResult, DelegatingMessageSource messageSource, String language) {
-
-        try {
-            if (messageSource == null || StringUtils.isEmpty(language) || language.length() < 3
-                    || !language.contains("_")) {
-                return;
-            }
-            String[] tmp = language.split("_");
-
-            String msg = messageSource.getMessage(McpConstants.API_RESULT_MESSAGE_PREFIX
-                    + apiResult.getCode(), null, new Locale(tmp[0], tmp[1]));
-            apiResult.setData(msg);
-        } catch (Exception e) {
-            logger.error("fillMessage", e);
-        }
-
-        return;
-    }
+//        boolean isEmptyData = apiResult.getData() == null || "".equals(apiResult.getData());
+//        // 填充提示或错误消息 sys级的 对data判空是为了兼容antispam的错误是直接返回错误msg的
+//        if (apiResult.getCode() != ErrorCode.SUCCESS
+//                && isEmptyData) {
+//            fillMessage(apiResult, messageSource, language);
+//        }
+//        
+////        if (!isEmptyData && apiResult.getData() instanceof BaseResult) {
+////            // 服务有返回时， 填充提示或错误消息 biz级的
+////            ErrorCode bizResultCode = getBizResultCode(apiResult);
+////            if (bizResultCode != ErrorCode.SystemSuccess) {
+////                apiResult.setCode(BizErrorMapperUtils.getMcpErrorCode(bizResultCode));
+////                fillMessage(apiResult, messageSource, language);
+////            } else {
+////                // 过滤掉服务端的errorcode
+////                filterBizResult(apiResult);                    
+////            }
+////        }
+//        return apiResult;
+//    }
+//    
+//    private static void fillMessage(ApiResult apiResult, DelegatingMessageSource messageSource, String language) {
+//
+//        try {
+//            if (messageSource == null || StringUtils.isEmpty(language) || language.length() < 3
+//                    || !language.contains("_")) {
+//                return;
+//            }
+//            String[] tmp = language.split("_");
+//
+//            String msg = messageSource.getMessage(McpConstants.API_RESULT_MESSAGE_PREFIX
+//                    + apiResult.getCode(), null, new Locale(tmp[0], tmp[1]));
+//            apiResult.setData(msg);
+//        } catch (Exception e) {
+//            logger.error("fillMessage", e);
+//        }
+//
+//        return;
+//    }
     
 //    private static ApiResult filterBizResult(ApiResult apiResult) {
 //        BaseResult baseResult = (BaseResult) apiResult.getData();

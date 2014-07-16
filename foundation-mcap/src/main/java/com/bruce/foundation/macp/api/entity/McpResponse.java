@@ -86,7 +86,7 @@ public class McpResponse {
 //                }
 //            }
             
-            BuildUtils.buildX2ApiResult(apiResult, messageSource, language);
+//            BuildUtils.buildX2ApiResult(apiResult, messageSource, language);
 
             this.writeHttpHeader();
 
@@ -116,28 +116,16 @@ public class McpResponse {
         }
     }
     
-    private void writeJSON(ApiResult apiResult, OutputStream os)
-            throws UnsupportedEncodingException, IOException {
-        //        logger.debug("apiResult----------" + apiResult);
-
-        if (apiResult.getCode() == ErrorCode.SUCCESS) {
-            Object obj = apiResult.getData();
-            String rt = BuildUtils.buildJSONResult(obj);
-            if (logger.isDebugEnabled()) {
-                logger.debug(String
-                        .format("cmd result ok:%s", rt));
-            }
-            byte[] ob = rt == null ? null : rt.getBytes(CharEncoding.UTF_8);
-            os.write(ob);
-        } else {
-            String rt = McpUtils.gson.toJson(apiResult);
-            if (logger.isDebugEnabled()) {
-                logger.debug(String.format("cmd result err:%s", rt));
-            }
-            byte[] ob = rt == null ? null : rt.getBytes(CharEncoding.UTF_8);
-            os.write(ob);
-        }
-
+    /**
+     * json响应
+     * @param apiResult
+     * @param os
+     * @throws IOException
+     */
+    private void writeJSON(ApiResult apiResult, OutputStream os) throws IOException {
+    	 String result = McpUtils.gson.toJson(apiResult);
+    	 byte[] ob = result == null ? null : result.getBytes(CharEncoding.UTF_8);
+    	 os.write(ob);
     }
 
     /**
