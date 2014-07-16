@@ -5,9 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>老夫卿发少年狂</title>
+<title>逗比</title>
 </head>
 <body>
-人在<span title="x2 revision ${revxxx}; ${hostName}">囧</span>途需蛋定。
+你是<span title="revision ${revxxx}; ${hostName}">猴子</span>请来的逗比吗
 </body>
 </html>

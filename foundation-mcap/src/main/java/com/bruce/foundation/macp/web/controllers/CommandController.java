@@ -193,9 +193,10 @@ public class CommandController extends AbstractController implements Initializin
             McpResponse mcpResponse) throws Exception {
         Map<String, String> requestParamMap = requestBaseContext.getRequestParamMap();
         
-        String version = requestParamMap.get(HttpConstants.PARAM_VER);
+        String versionName = requestParamMap.get(HttpConstants.PARAM_VERSION_NAME);
+        String versionCode = requestParamMap.get(HttpConstants.PARAM_VERSION_CODE);
         // version is required
-        if (StringUtils.isEmpty(version)) {
+        if (StringUtils.isEmpty(versionName)||StringUtils.isEmpty(versionCode)) {
             mcpResponse.write(new ApiResult(ErrorCode.E_SYS_INVALID_VERSION));
             return false;
         }

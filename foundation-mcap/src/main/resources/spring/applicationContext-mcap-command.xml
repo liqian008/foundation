@@ -6,9 +6,6 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 	
-	<bean id="checkUpdateCommand" class="com.bruce.foundation.macp.api.command.system.CheckUpdateCommand">
-	</bean>
-	
 	<!-- <bean id="batchRunCommand" class="com.renren.mobile.mcp.api.command.batch.BatchRunCommand">
 		<property name="mobileClientAppService" ref="mobileClientAppService" />
 		<property name="commandLookupService" ref="commandLookupService" />
@@ -17,8 +14,6 @@
 	<!-- command map -->
 	<util:map id="apiCommandMap" key-type="java.lang.String"
 		value-type="com.bruce.foundation.macp.api.command.ApiCommand">
-		<entry key="checkUpdate.cmd" value-ref="checkUpdateCommand" />
-
 		<!-- test apis -->
 		<entry key="test.cmd" value-ref="testCommand" />
 
@@ -40,7 +35,10 @@
 
 		<value>search.searchAdUsers</value>
  -->
-
 	</util:set>
+	
+	
+	<bean id="testCommand" class="com.bruce.foundation.macp.api.command.test.TestCommand">
+	</bean>
 
 </beans>

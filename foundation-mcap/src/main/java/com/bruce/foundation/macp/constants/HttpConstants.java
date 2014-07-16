@@ -22,7 +22,9 @@ public final class HttpConstants {
 
     public final static String PARAM_APP_ID = "app_id";
 
-    public final static String PARAM_VER = "v";
+    public final static String PARAM_VERSION_NAME = "v_name";
+    
+    public final static String PARAM_VERSION_CODE = "v_code";
 
     public final static String PARAM_CMD_METHOD = "cmd_method";
 
@@ -40,22 +42,19 @@ public final class HttpConstants {
     public final static String[] NOT_ENCRYPTED_PARAMS = { USER_AGENT, CLIENT_IP, LANGUAGE,
             PARAM_SIG };
 
-    // public static final String FORMAT_PROTO = "proto";
-
     public static final String FORMAT_JSON = "json";
 
-    // public static final String FORMAT_TXT = "txt";
-
     public final static String DEFAULT_FORMAT = FORMAT_JSON;
-
-    // public final static String[] FORMATS = { FORMAT_JSON, FORMAT_PROTO,
-    // FORMAT_TXT };
 
     public final static String DATA_TYPE_COMPRESSION = "compression";
 
     public final static String PARAM_CLIENT_INFO = "client_info";
 
-    public final static String MISC = "misc";
-
     public final static Locale DEFAULT_LANGUAGE = Locale.CHINA;
+    
+    // public static final String FORMAT_PROTO = "proto";
+    // public static final String FORMAT_TXT = "txt";
+    // public final static String[] FORMATS = { FORMAT_JSON, FORMAT_PROTO,
+    // FORMAT_TXT };
+//    public final static String MISC = "misc";
 }
