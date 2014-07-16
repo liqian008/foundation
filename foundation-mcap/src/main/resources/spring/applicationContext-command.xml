@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- <bean id="batchRunCommand" class="com.renren.mobile.mcp.api.command.batch.BatchRunCommand">
+		<property name="mobileClientAppService" ref="mobileClientAppService" />
+		<property name="commandLookupService" ref="commandLookupService" />
+	</bean> -->
+
+	<!-- command map -->
+	<util:map id="apiCommandMap" key-type="java.lang.String"
+		value-type="com.bruce.designer.mcp.api.command.ApiCommand">
+
+		<!-- test apis -->
+		<entry key="test.cmd" value-ref="testCommand" />
+
+		
+
+	</util:map>
+
+	<!-- ticket is un necessary -->
+	<util:set id="ticketUnnecessaryApiSet" value-type="java.lang.String">
+		<value>test.cmd</value>
+
+		<!-- batch apis -->
+		<!-- <value>batch.batchRun</value>
+
+		<value>sys.statLog</value>
+
+		<value>account.x2Login</value>
+
+		<value>feed.getAdFeeds</value>
+
+		<value>search.searchAdUsers</value>
+ -->
+
+	</util:set>
+
+</beans>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+	<!-- 集中调度列表 -->
+	<util:map id="scheduleTaskMap" key-type="java.lang.String"
+		value-type="java.lang.Integer">
+		<entry key-ref="mobileClientAppService" value="10" />
+	</util:map>
+
+	<!-- 集中调度支持 -->
+	<bean id="scheduleTaskSupport" class="com.bruce.designer.mcp.api.service.ScheduleTaskSupport">
+		<property name="taskMap" ref="scheduleTaskMap" />
+	</bean>
+
+	<!-- 集中调度：延时30秒启动，间隔一分钟 -->
+	<bean id="batAutoLoadTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="timerTask" ref="scheduleTaskSupport" />
+		<property name="delay" value="5000" />
+		<property name="period" value="60000" />
+	</bean>
+
+	<!-- 启动定时器 -->
+	<bean class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="batAutoLoadTask" />
+			</list>
+		</property>
+	</bean>
+
+</beans>
