@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<bean id="testCommand" class="com.bruce.designer.mcp.api.command.test.TestCommand">
+	<bean id="testCommand" class="com.bruce.foundation.macp.api.command.test.TestCommand">
 	</bean>
 
 </beans>

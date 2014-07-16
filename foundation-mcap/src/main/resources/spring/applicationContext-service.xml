@@ -7,19 +7,19 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<bean id="mobileClientAppService"
-		class="com.bruce.designer.mcp.api.service.impl.MobileClientAppServiceImpl">
+		class="com.bruce.foundation.macp.api.service.impl.MobileClientAppServiceImpl">
 	</bean>
 
 	<bean id="passportService"
-		class="com.bruce.designer.mcp.passport.service.impl.PassportServiceImpl">
+		class="com.bruce.foundation.macp.passport.service.impl.PassportServiceImpl">
 	</bean>
 
 	<bean id="mcpCacheManager"
-		class="com.bruce.designer.mcp.api.service.impl.McpCacheManagerImpl">
+		class="com.bruce.foundation.macp.api.service.impl.McpCacheManagerImpl">
 	</bean>
 
 	<bean id="commandLookupService"
-		class="com.bruce.designer.mcp.api.service.impl.CommandLookupServiceImpl">
+		class="com.bruce.foundation.macp.api.service.impl.CommandLookupServiceImpl">
 		<property name="apiMapByConfig" ref="apiCommandMap" />
 		<property name="ticketUnnecessaryApiSet" ref="ticketUnnecessaryApiSet" />
 	</bean>

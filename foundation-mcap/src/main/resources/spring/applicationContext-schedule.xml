@@ -14,7 +14,7 @@
 	</util:map>
 
 	<!-- 集中调度支持 -->
-	<bean id="scheduleTaskSupport" class="com.bruce.designer.mcp.api.service.ScheduleTaskSupport">
+	<bean id="scheduleTaskSupport" class="com.bruce.foundation.macp.api.service.ScheduleTaskSupport">
 		<property name="taskMap" ref="scheduleTaskMap" />
 	</bean>
 

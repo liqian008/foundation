@@ -13,7 +13,7 @@
 
 	<!-- command map -->
 	<util:map id="apiCommandMap" key-type="java.lang.String"
-		value-type="com.bruce.designer.mcp.api.command.ApiCommand">
+		value-type="com.bruce.foundation.macp.api.command.ApiCommand">
 
 		<!-- test apis -->
 		<entry key="test.cmd" value-ref="testCommand" />

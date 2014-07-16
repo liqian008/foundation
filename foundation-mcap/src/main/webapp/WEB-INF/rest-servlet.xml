@@ -48,7 +48,7 @@
 		<property name="requestFrequencyControlRequired" value="${api.request.frenquency.control.required}" 
 		/> </bean> -->
 
-	<bean name="/*" class="com.bruce.designer.mcp.web.controllers.CommandController">
+	<bean name="/*" class="com.bruce.foundation.macp.web.controllers.CommandController">
 		<property name="mobileClientAppService" ref="mobileClientAppService" />
 		<property name="passportService" ref="passportService" />
 		<property name="commandLookupService" ref="commandLookupService" />
