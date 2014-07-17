@@ -5,7 +5,7 @@
 package com.bruce.foundation.macp.api.command;
 
 import com.bruce.foundation.macp.api.entity.ApiCommandContext;
-import com.bruce.foundation.macp.api.entity.ApiResult;
+import com.bruce.foundation.model.result.ApiResult;
 
 /**
  * 命令接口

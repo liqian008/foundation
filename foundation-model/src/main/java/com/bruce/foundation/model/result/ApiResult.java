@@ -2,7 +2,7 @@
  * $Id $
  * Copyright 2009-2011 Oak Pacific Interactive. All rights reserved.
  */
-package com.bruce.foundation.macp.api.entity;
+package com.bruce.foundation.model.result;
 
 import java.io.Serializable;
 
@@ -26,18 +26,13 @@ public class ApiResult implements Serializable {
 		super();
 	}
     
-    public ApiResult(int errorcode) {
-        super();
-        this.result = ErrorCode.RESULT_FAILED;
-        this.errorcode = errorcode;
-    }
-    
-    public ApiResult(Object data) {
-        super();
-        this.result = ErrorCode.RESULT_SUCCESS;
-        this.data = data;
-    }
-    
+	public ApiResult(int result, Object data, int errorcode, String message) {
+		super();
+		this.result = result;
+		this.errorcode = errorcode;
+		this.message = message;
+		this.data = data;
+	}
 
 	public int getResult() {
 		return result;

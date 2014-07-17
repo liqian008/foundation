@@ -23,17 +23,18 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import com.bruce.foundation.macp.api.command.ApiCommand;
 import com.bruce.foundation.macp.api.entity.ApiCommandContext;
-import com.bruce.foundation.macp.api.entity.ApiResult;
 import com.bruce.foundation.macp.api.entity.ErrorCode;
 import com.bruce.foundation.macp.api.entity.McpResponse;
 import com.bruce.foundation.macp.api.entity.MobileClientAppInfo;
 import com.bruce.foundation.macp.api.entity.RequestBaseContext;
 import com.bruce.foundation.macp.api.service.CommandLookupService;
 import com.bruce.foundation.macp.api.service.MobileClientAppService;
+import com.bruce.foundation.macp.api.utils.ResponseBuilderUtil;
 import com.bruce.foundation.macp.constants.HttpConstants;
 import com.bruce.foundation.macp.passport.entity.UserPassport;
 import com.bruce.foundation.macp.passport.service.PassportService;
 import com.bruce.foundation.macp.utils.McpUtils;
+import com.bruce.foundation.model.result.ApiResult;
 
 /**
  * command控制器
@@ -111,7 +112,7 @@ public class CommandController extends AbstractController implements Initializin
             String methodValue = requestParamMap.get(HttpConstants.PARAM_CMD_METHOD);
             if (StringUtils.isEmpty(methodValue)) {
                 // 没有方法名
-                mcpResponse.write(new ApiResult(ErrorCode.E_SYS_UNKNOWN_METHOD));
+                mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_UNKNOWN_METHOD));
                 return null;
             }
 
@@ -119,7 +120,7 @@ public class CommandController extends AbstractController implements Initializin
             ApiCommand apiCommand = commandLookupService.lookupApiCommand(methodValue);
             if (apiCommand == null) {
                 // apiCommand is unknown
-                mcpResponse.write(new ApiResult(ErrorCode.E_SYS_UNKNOWN_METHOD));
+                mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_UNKNOWN_METHOD));
                 return null;
             }
 
@@ -127,7 +128,7 @@ public class CommandController extends AbstractController implements Initializin
             userId = requestBaseContext.getUserId();
             if (requestBaseContext.getUserId() == 0
                     && this.commandLookupService.isNeedLogin(methodValue)) {
-                mcpResponse.write(new ApiResult(ErrorCode.E_SYS_INVALID_TICKET));
+                mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_INVALID_TICKET));
                 return null;
             }
 
@@ -138,7 +139,7 @@ public class CommandController extends AbstractController implements Initializin
             // 检查客户端app是否对这个方法有权限
             if (!mobileClientAppService.isAllowedApiMethod(requestBaseContext.getAppInfo()
                     .getAppId(), methodValue)) {
-                mcpResponse.write(new ApiResult(ErrorCode.E_SYS_PERMISSION_DENY));
+                mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_PERMISSION_DENY));
                 return null;
             }
 
@@ -160,7 +161,7 @@ public class CommandController extends AbstractController implements Initializin
 
         } catch (Throwable e) {
             logger.error("CommandController handleRequestInternal", e);
-            mcpResponse.write(new ApiResult(ErrorCode.E_SYS_UNKNOWN));
+            mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_UNKNOWN));
         } finally {
             // log统计
             String httpAccessLogMsg = String.format(httpAccessLogFormat//
@@ -197,7 +198,7 @@ public class CommandController extends AbstractController implements Initializin
         String versionCode = requestParamMap.get(HttpConstants.PARAM_VERSION_CODE);
         // version is required
         if (StringUtils.isEmpty(versionName)||StringUtils.isEmpty(versionCode)) {
-            mcpResponse.write(new ApiResult(ErrorCode.E_SYS_INVALID_VERSION));
+            mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_INVALID_VERSION));
             return false;
         }
 
@@ -209,21 +210,21 @@ public class CommandController extends AbstractController implements Initializin
 
         // sig is required
         if (StringUtils.isEmpty(sig)) {
-            mcpResponse.write(new ApiResult(ErrorCode.E_SYS_INVALID_SIG));
+            mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_INVALID_SIG));
             return false;
         }
 
         final int appId = NumberUtils.toInt(requestParamMap.get(HttpConstants.PARAM_APP_ID), 0);
         // appId is required
         if (appId == 0) {
-            mcpResponse.write(new ApiResult(ErrorCode.E_SYS_INVALID_APP_ID));
+            mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_INVALID_APP_ID));
             return false;
         }
 
         MobileClientAppInfo appInfo = mobileClientAppService.getAppInfo(appId);
         // 接入信息无效
         if (appInfo == null) {
-            mcpResponse.write(new ApiResult(ErrorCode.E_SYS_INVALID_APP_ID));
+            mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_INVALID_APP_ID));
             return false;
         }
         requestBaseContext.setAppInfo(appInfo);
@@ -245,7 +246,7 @@ public class CommandController extends AbstractController implements Initializin
                             requestBaseContext.getSecretKey()));
                 }
             } else {
-                mcpResponse.write(new ApiResult(ErrorCode.E_SYS_INVALID_TICKET));
+                mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_INVALID_TICKET));
                 return false;
             }
 
@@ -283,7 +284,7 @@ public class CommandController extends AbstractController implements Initializin
 
         if (!StringUtils.equalsIgnoreCase(sig, requiredSig)) {
             // sig is mismatch
-            mcpResponse.write(new ApiResult(ErrorCode.E_SYS_INVALID_SIG));
+            mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_INVALID_SIG));
             return false;
         }
         // }
@@ -315,7 +316,7 @@ public class CommandController extends AbstractController implements Initializin
 //            }
 //
 //            if (cacheSig != null) { // 是重发的请求，用户访问过于频繁
-//                mcpResponse.write(new ApiResult(ApiResultCode.E_SYS_REQUEST_TOO_FAST));
+//                mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ApiResultCode.E_SYS_REQUEST_TOO_FAST));
 //                return false;
 //            } else {
 //                // 随便传一个value把sig的key存入到memecached里, 标记该sig已经请求过了

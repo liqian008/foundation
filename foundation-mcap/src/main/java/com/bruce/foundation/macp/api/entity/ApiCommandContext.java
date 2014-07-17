@@ -83,18 +83,6 @@ public class ApiCommandContext implements Serializable {
         if (clientInfo == null) {
             clientInfo = new ClientInfo();
         }
-        // // 统计用,客户端传递的misc参数，里面包含了 htf,在线OR离线,联网状态 这三部分内容，需要解析该参数
-        // String strMISC = stringParams.get(HttpConstants.MISC);
-        // if (StringUtils.isNotBlank(strMISC)) {
-        // try {
-        // String[] miscArray = strMISC.split(",");
-        // if (StringUtils.isNotBlank(miscArray[0])) {
-        // this.stringParams.put("htf", miscArray[0]);
-        // }
-        // } catch (Exception e) {
-        // logger.error("ApiCommandContext", e);
-        // }
-        // }
     }
 
     public long getBeginTime() {

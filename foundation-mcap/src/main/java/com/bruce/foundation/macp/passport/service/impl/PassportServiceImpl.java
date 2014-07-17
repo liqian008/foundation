@@ -7,7 +7,6 @@ package com.bruce.foundation.macp.passport.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,7 +27,68 @@ public class PassportServiceImpl implements PassportService, InitializingBean {
     // TODO: passport cache
 //    private ICacheService t2PassportCache;
     private Map<String, Object> passportCache = new HashMap<String, Object>();
+    
+    /**
+     * 根据userPassport对象生成ticket
+     */
+    @Override
+    public String createTicket(UserPassport userPassport) {
+        String ticket = null;
+        if (userPassport == null || userPassport.getUserId() == 0 || StringUtils.isEmpty(userPassport.getIdentity())) {
+            return ticket;
+        }
+        ticket = TicketUtils.generateTicket(userPassport.getUserId(), userPassport.getIdentity());
+        userPassport.setTicket(ticket);
+        if (!StringUtils.isEmpty(ticket)) {
+            try {
+//                t2PassportCache
+//                        .set(userPassport.getUserId() + "", userPassport, UserPassport.class);
+                passportCache.put(userPassport.getUserId() + "", userPassport);
+            } catch (Exception e) {
+                logger.error("[" + this.getClass().getName() + "]", e);
+                return null;
+            }
+        }
+        return ticket;
+    }
 
+    @Override
+    public String getTicketByUserId(int userId) {
+        String ticket = null;
+
+        if (userId != 0) {
+            UserPassport userPassport = this.getPassportByUserId(userId);
+            if (userPassport != null) {
+                ticket = userPassport.getTicket();
+                String mix = TicketUtils.decryptTicket(ticket);
+                int uid = TicketUtils.getUserIdFromMix(mix);
+                if (uid <= 0) {
+                    return null;
+                }
+                if (uid != userId) {
+                    return null;
+                }
+            }
+        }
+        return ticket;
+    }
+    
+    @Override
+    public UserPassport getPassportByUserId(int userId) {
+        UserPassport userPassport = null;
+
+        if (userId != 0) {
+            try {
+//                userPassport = t2PassportCache.get(userId + "", UserPassport.class);
+                userPassport = (UserPassport) passportCache.get(userId + "");  
+            } catch (Exception e) {
+                logger.error("[" + this.getClass().getName() + "]", e);
+            }
+        }
+        return userPassport;
+    }
+
+    
     /**
      * 销毁tickt
      */
@@ -111,66 +171,7 @@ public class PassportServiceImpl implements PassportService, InitializingBean {
         return userId;
     }
 
-    /**
-     * 根据userPassport对象生成ticket
-     */
-    @Override
-    public String createTicket(UserPassport userPassport) {
-        String ticket = null;
-        if (userPassport == null || userPassport.getUserId() == 0 || StringUtils.isEmpty(userPassport.getIdentity())) {
-            return ticket;
-        }
-        ticket = TicketUtils.generateTicket(userPassport.getUserId(), userPassport.getIdentity());
-        userPassport.setTicket(ticket);
-        if (!StringUtils.isEmpty(ticket)) {
-            try {
-//                t2PassportCache
-//                        .set(userPassport.getUserId() + "", userPassport, UserPassport.class);
-                passportCache.put(userPassport.getUserId() + "", userPassport);
-            } catch (Exception e) {
-                logger.error("[" + this.getClass().getName() + "]", e);
-                return null;
-            }
-        }
-        return ticket;
-    }
-
-    @Override
-    public String getTicketByUserId(int userId) {
-        String ticket = null;
-
-        if (userId != 0) {
-            UserPassport userPassport = this.getPassportByUserId(userId);
-            if (userPassport != null) {
-                ticket = userPassport.getTicket();
-                String mix = TicketUtils.decryptTicket(ticket);
-                int uid = TicketUtils.getUserIdFromMix(mix);
-                if (uid <= 0) {
-                    return null;
-                }
-                if (uid != userId) {
-                    return null;
-                }
-            }
-        }
-        return ticket;
-    }
     
-    @Override
-    public UserPassport getPassportByUserId(int userId) {
-        UserPassport userPassport = null;
-
-        if (userId != 0) {
-            try {
-//                userPassport = t2PassportCache.get(userId + "", UserPassport.class);
-                userPassport = (UserPassport) passportCache.get(userId + "");  
-            } catch (Exception e) {
-                logger.error("[" + this.getClass().getName() + "]", e);
-            }
-        }
-        return userPassport;
-    }
-
 //    public void setT2PassportCache(ICacheService t2PassportCache) {
 //        this.t2PassportCache = t2PassportCache;
 //    }

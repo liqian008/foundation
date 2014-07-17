@@ -39,6 +39,7 @@
 	
 	
 	<bean id="testCommand" class="com.bruce.foundation.macp.api.command.test.TestCommand">
+		<property name="passportService" ref="passportService"></property>
 	</bean>
 
 </beans>

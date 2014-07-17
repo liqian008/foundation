@@ -6,7 +6,6 @@ package com.bruce.foundation.macp.api.entity;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +16,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.DelegatingMessageSource;
 
-import com.bruce.foundation.macp.api.utils.BuildUtils;
+import com.bruce.foundation.macp.api.utils.ResponseBuilderUtil;
 import com.bruce.foundation.macp.constants.HttpConstants;
 import com.bruce.foundation.macp.utils.McpUtils;
+import com.bruce.foundation.model.result.ApiResult;
 
 /**
  * 
@@ -87,7 +87,9 @@ public class McpResponse {
 //            }
             
 //            BuildUtils.buildX2ApiResult(apiResult, messageSource, language);
-
+        	
+        	ResponseBuilderUtil.fillMessage(apiResult, messageSource, language);
+        	
             this.writeHttpHeader();
 
             os = response.getOutputStream();
@@ -120,7 +122,7 @@ public class McpResponse {
      * json响应
      * @param apiResult
      * @param os
-     * @throws IOException
+     * @throws IOException 
      */
     private void writeJSON(ApiResult apiResult, OutputStream os) throws IOException {
     	 String result = McpUtils.gson.toJson(apiResult);

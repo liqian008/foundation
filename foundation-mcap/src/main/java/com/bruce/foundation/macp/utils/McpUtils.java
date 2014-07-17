@@ -25,11 +25,7 @@ import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.remoting.RemoteConnectFailureException;
-import org.springframework.remoting.RemoteLookupFailureException;
 
-import com.bruce.foundation.macp.api.entity.ApiResult;
-import com.bruce.foundation.macp.api.entity.ErrorCode;
 import com.bruce.foundation.macp.api.entity.RequestBaseContext;
 import com.bruce.foundation.macp.constants.HttpConstants;
 import com.google.gson.Gson;

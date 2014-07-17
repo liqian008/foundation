@@ -8,7 +8,7 @@ package com.bruce.foundation.macp.api.entity;
  * "E"表示“error”(错误)；"SYS"表示"system"（系统平台级的）;"biz"表示“business”（业务级的）
  * @author liqian
  */
-public final class ErrorCode {
+public class ErrorCode {
 
     // 请求成功
     public final static int RESULT_SUCCESS = 1;
