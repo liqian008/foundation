@@ -238,13 +238,17 @@ public class CommandController extends AbstractController implements Initializin
             if (userPassport != null && userPassport.getUserId() != 0) {
             	requestBaseContext.setUserId(userPassport.getUserId());
                 //已登录用户使用userSecretKey
-            	requestBaseContext.setSecretKey(userPassport.getUserSecretKey());
-                if (logger.isDebugEnabled()) {
-                    logger.debug(String.format(
-                            "[%s]:{lookupSecretKey:[.getUserId()=%s][.getSecretKey()=%s]}", this
-                                    .getClass().getName(), requestBaseContext.getUserId(),
-                            requestBaseContext.getSecretKey()));
-                }
+//            	requestBaseContext.setSecretKey(userPassport.getUserSecretKey());
+//                if (logger.isDebugEnabled()) {
+//                    logger.debug(String.format(
+//                            "[%s]:{lookupSecretKey:[.getUserId()=%s][.getSecretKey()=%s]}", this
+//                                    .getClass().getName(), requestBaseContext.getUserId(),
+//                            requestBaseContext.getSecretKey()));
+//                }
+            	
+            	//暂时不使用用户的secretKey，改用系统默认的
+            	requestBaseContext.setSecretKey(requestBaseContext.getAppInfo().getSecretKey());
+            	
             } else {
                 mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_INVALID_TICKET));
                 return false;
