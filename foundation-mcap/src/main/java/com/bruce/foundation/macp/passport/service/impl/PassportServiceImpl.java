@@ -142,14 +142,18 @@ public class PassportServiceImpl implements PassportService, InitializingBean {
         if (StringUtils.isEmpty(ticket)) {
             return userPassport;
         }
-        String mix = TicketUtils.decryptTicket(ticket);
-        int uid = TicketUtils.getUserIdFromMix(mix);
-        if (uid <= 0) {
-            return userPassport;
-        }
+//        String mix = TicketUtils.decryptTicket(ticket);
+//        int uid = TicketUtils.getUserIdFromMix(mix);
+//        if (uid <= 0) {
+//            return userPassport;
+//        }
+        int userId = getUserIdByTicket(ticket);
+        if (userId <= 0) {
+          return userPassport;
+      }
         try {
-//            userPassport = t2PassportCache.get(uid + "", UserPassport.class);
-            userPassport = (UserPassport) passportCache.get(uid + "");
+        	//userPassport = t2PassportCache.get(userId + "", UserPassport.class);
+            userPassport = (UserPassport) passportCache.get(userId + "");
         } catch (Exception e) {
             logger.error("[" + this.getClass().getName() + "]", e);
         }
@@ -158,17 +162,18 @@ public class PassportServiceImpl implements PassportService, InitializingBean {
     
 
     /**
-     * 根据ticket换取userid
+     * 根据ticket直接换取userid
      */
     @Override
     public int getUserIdByTicket(String ticket) {
-        int userId = 0;
-        UserPassport userPassport = getPassportByTicket(ticket);
-        if (userPassport == null) {
-            return userId;
+        if(ticket!=null){
+        	String mix = TicketUtils.decryptTicket(ticket);
+            int uid = TicketUtils.getUserIdFromMix(mix);
+            if (uid > 0) {
+            	return uid;
+            }
         }
-        userId = userPassport.getUserId();
-        return userId;
+        return 0;
     }
 
     

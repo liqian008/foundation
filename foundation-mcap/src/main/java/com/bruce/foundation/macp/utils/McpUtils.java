@@ -7,6 +7,7 @@ package com.bruce.foundation.macp.utils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,7 @@ public class McpUtils {
 
     private final static ObjectMapper jsonObjectMapper = new ObjectMapper();
 
-    public static Gson gson = new GsonBuilder().create();
+    public static Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDateTypeAdapter()).create();
 
     public static String ILLEGAL_CONTENT_MSG = "";
 
@@ -448,4 +449,5 @@ public class McpUtils {
 //            return ErrorCode.E_SYS_UNKNOWN;
 //        }
 //    }
+    
 }
