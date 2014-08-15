@@ -22,10 +22,10 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 public class PaginationPlugin extends PluginAdapter {  
     @Override  
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {  
-        // add field, getter, setter for limit clause  
-        addLimit(topLevelClass, introspectedTable, "limitOffset");  
-        addLimit(topLevelClass, introspectedTable, "limitRows");  
-        return super.modelExampleClassGenerated(topLevelClass, introspectedTable);  
+        // add field, getter, setter for limit clause
+        addLimit(topLevelClass, introspectedTable, "limitOffset");
+        addLimit(topLevelClass, introspectedTable, "limitRows");
+        return super.modelExampleClassGenerated(topLevelClass, introspectedTable);
     }
     
     /**

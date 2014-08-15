@@ -11,9 +11,6 @@
 		<property name="commandLookupService" ref="commandLookupService" />
 	</bean> -->
 	
-	<bean id="systemCheckCommand" class="com.bruce.foundation.macp.api.command.system.SystemCheckCommand">
-		<property name="passportService" ref="passportService" />
-	</bean>
 	<bean id="testLoginCommand" class="com.bruce.foundation.macp.api.command.account.TestLoginCommand">
 		<property name="passportService" ref="passportService" />
 	</bean>
@@ -25,8 +22,6 @@
 	<!-- command map -->
 	<util:map id="apiCommandMap" key-type="java.lang.String"
 		value-type="com.bruce.foundation.macp.api.command.ApiCommand">
-		
-		<entry key="systemCheck.cmd" value-ref="systemCheckCommand" />
 		<entry key="testLogin.cmd" value-ref="testLoginCommand" />
 		<entry key="wbLogin.cmd" value-ref="weiboLoginCommand" />
 		<!-- apis for test -->
