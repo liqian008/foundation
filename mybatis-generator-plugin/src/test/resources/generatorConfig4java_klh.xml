@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+	<classPathEntry
+		location="/Users/liqian/.m2/repository_lican/mysql/mysql-connector-java/5.1.23/mysql-connector-java-5.1.23.jar" />
+	<!-- <classPathEntry location="/home/liqian/data/mysql.jar" /> -->
+
+	<context id="context1">
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</plugin>
+		<plugin type="com.bruce.mybatisPlugin.PaginationPlugin">
+		</plugin>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/wx_klh" userId="designer"
+			password="designer" />
+		<
+		<javaModelGenerator targetPackage="com.bruce.geekway.model"
+			targetProject="geekway-model" />
+		<sqlMapGenerator targetPackage="com.bruce.geekway.model.xml"
+			targetProject="geekway-model" />
+		<javaClientGenerator targetPackage="com.bruce.geekway.dao.mapper"
+			targetProject="geekway-service" type="XMLMAPPER">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<!-- klh config -->
+
+		<table schema="wx" tableName="klh_setting" domainObjectName="KlhSetting" />
+
+		<!-- <table schema="wx" tableName="klh_product" domainObjectName="KlhProduct"/> 
+			<table schema="wx" tableName="klh_user_profile" domainObjectName="KlhUserProfile"/> 
+			<table schema="wx" tableName="klh_wall_image_log" domainObjectName="KlhWallImageLog"/> 
+			<table schema="wx" tableName="klh_vote" domainObjectName="KlhVote"/> <table 
+			schema="wx" tableName="klh_vote_option" domainObjectName="KlhVoteOption"/> 
+			<table schema="wx" tableName="klh_user_score_history" domainObjectName="KlhUserScoreHistory"/> 
+			<table schema="wx" tableName="klh_score_setting" domainObjectName="KlhScoreSetting"/> 
+			<table schema="wx" tableName="klh_user_score_log" domainObjectName="KlhUserScoreLog"/> 
+			<table schema="wx" tableName="klh_daily_sign" domainObjectName="KlhDailySign"/> 
+			<table schema="wx" tableName="klh_vote_result" domainObjectName="KlhVoteResult"/> -->
+
+
+	</context>
+</generatorConfiguration>

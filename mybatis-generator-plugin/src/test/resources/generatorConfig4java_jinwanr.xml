@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+	<classPathEntry
+		location="/Users/liqian/.m2/repository_lican/mysql/mysql-connector-java/5.1.23/mysql-connector-java-5.1.23.jar" />
+	<!-- <classPathEntry location="/home/liqian/data/mysql.jar" /> -->
+
+	<context id="context1">
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</plugin>
+		<plugin type="com.bruce.mybatisPlugin.PaginationPlugin">
+		</plugin>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/designer" userId="designer"
+			password="designer" />
+		<javaModelGenerator targetPackage="com.bruce.designer.model"
+			targetProject="designer-model" />
+		<sqlMapGenerator targetPackage="com.bruce.designer.model.mapper"
+			targetProject="designer-model" />
+		<javaClientGenerator targetPackage="com.bruce.designer.dao.mapper"
+			targetProject="designer-service" type="XMLMAPPER">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<table schema="designer" tableName="tb_album" domainObjectName="Album" />
+		<!-- 
+		<table schema="designer" tableName="tb_access_token_info" domainObjectName="AccessTokenInfo"/> 
+		<table schema="designer" tableName="tb_album_action_log" domainObjectName="AlbumActionLog"/> 
+		<table schema="designer" tableName="tb_album_favorite" domainObjectName="AlbumFavorite"/> 
+		<table schema="designer" tableName="tb_album_Like" domainObjectName="AlbumLike"/> 
+		<table schema="designer" tableName="tb_album_favorite" domainObjectName="AlbumFavorite"/> 
+		<table schema="designer" tableName="tb_album_Like" domainObjectName="AlbumLike"/> 
+		<table schema="designer" tableName="tb_album_recommend" domainObjectName="AlbumRecommend"/> 
+		<table schema="designer" tableName="tb_message" domainObjectName="Message"/> 
+		<table schema="designer" tableName="tb_index_slide" domainObjectName="IndexSlide"/> 
+		<table schema="designer" tableName="tb_album_counter" domainObjectName="AlbumCounter"/> 
+		<table schema="designer" tableName="tb_feedback" domainObjectName="Feedback"/> 
+		<table schema="designer" tableName="tb_tag_album" domainObjectName="TagAlbum"/> 
+		<table schema="designer" tableName="tb_album" domainObjectName="Album"/> 
+		<table schema="designer" tableName="tb_user_fan" domainObjectName="UserFan"/> 
+		<table schema="designer" tableName="tb_user_favorite" domainObjectName="UserFavorite"/> 
+		<table schema="designer" tableName="tb_user_follow" domainObjectName="UserFollow"/> 
+		<table schema="designer" tableName="tb_album_slide" domainObjectName="AlbumSlide"/> 
+		<table schema="designer" tableName="tb_comment" domainObjectName="Comment"/> 
+		<table schema="designer" tableName="tb_user_message" domainObjectName="UserMessage"/> 
+		<table schema="designer" tableName="tb_user" domainObjectName="User"/> <table 
+		schema="designer" tableName="tb_designer" domainObjectName="Designer"/> <table 
+		schema="designer" tableName="tb_user_source" domainObjectName="UserSource"/> 
+		<table schema="designer" tableName="tb_feed" domainObjectName="FeedDTO" /> 
+		<table schema="designer" tableName="tb_tag" domainObjectName="Tag"></table> 
+		-->
+
+
+	</context>
+</generatorConfiguration>

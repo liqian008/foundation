@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+	<classPathEntry
+		location="/Users/liqian/.m2/repository_lican/mysql/mysql-connector-java/5.1.23/mysql-connector-java-5.1.23.jar" />
+	<!-- <classPathEntry location="/home/liqian/data/mysql.jar" /> -->
+
+	<context id="context1">
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</plugin>
+		<plugin type="com.bruce.mybatisPlugin.PaginationPlugin">
+		</plugin>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/wx_1758" userId="designer"
+			password="designer" />
+		<javaModelGenerator targetPackage="com.bruce.geekway.model"
+			targetProject="geekway-model" />
+		<sqlMapGenerator targetPackage="com.bruce.geekway.model.xml"
+			targetProject="geekway-model" />
+		<javaClientGenerator targetPackage="com.bruce.geekway.dao.mapper"
+			targetProject="geekway-service" type="XMLMAPPER">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+
+		<!-- geekway config -->
+		<table schema="wx" tableName="wx_pay_alarm" domainObjectName="WxPayAlarm" />
+		<table schema="wx" tableName="wx_pay_order_info" domainObjectName="WxPayOrderInfo" />
+		<table schema="wx" tableName="wx_pay_complaint" domainObjectName="WxPayComplaint" />
+		<table schema="wx" tableName="wx_pay_product" domainObjectName="WxPayProduct" />
+
+
+		<!-- <table schema="wx" tableName="wx_access_token" domainObjectName="WxAccessToken"/> 
+			<table schema="wx" tableName="wx_history_message" domainObjectName="WxHistoryMessage"/> 
+			<table schema="wx" tableName="wx_material_news" domainObjectName="WxMaterialNews"/> 
+			<table schema="wx" tableName="wx_material_article" domainObjectName="WxMaterialArticle"/> 
+			<table schema="wx" tableName="wx_material_news_article" domainObjectName="WxMaterialNewsArticle"/> 
+			<table schema="wx" tableName="wx_command" domainObjectName="WxCommand"/> 
+			<table schema="wx" tableName="wx_material_multimedia" domainObjectName="WxMaterialMultimedia"/> 
+			<table schema="wx" tableName="wx_broadcast" domainObjectName="WxBroadcast"/> 
+			<table schema="wx" tableName="wx_default_reply" domainObjectName="WxDefaultReply"/> 
+			<table schema="wx" tableName="wx_command_material" domainObjectName="WxCommandMaterial"/> 
+			<table schema="wx" tableName="wx_customize_menu" domainObjectName="WxCustomizeMenu"/> 
+			<table schema="wx" tableName="wx_mp_user" domainObjectName="WxMpUser"/> <table 
+			schema="wx" tableName="wx_material" domainObjectName="WxMaterial"/> -->
+
+	</context>
+</generatorConfiguration>
