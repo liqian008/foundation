@@ -110,7 +110,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			 -->
 			
 			
-			<form id="validate" action="<s:url value='./resources'/>" method="post" >				
+			<form id="validate" action="<s:url value='./resourcesPaging'/>" method="post" >
 				<!-- Basic inputs -->
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -122,7 +122,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 						<div class="form-group">
 							<div class="row">
 								<div class="col-md-4">
-									<label>资源名:</label><input type="text" name="resourceName" placeholder="支持模糊匹配" class="form-control" > 
+									<label>资源名:</label><input type="text" name="resourceName" placeholder="支持模糊匹配" class="form-control" value="${resourceName}"> 
 								</div>
 								<div class="col-md-4">
 									<label>资源链接:</label> <input type="text" name="url" placeholder="支持模糊匹配" class="form-control">
@@ -196,7 +196,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 					</table>
 					
 					<div class="datatable-footer">
-					<%=PaginatorUtil.buildPageingHtml(pagingResult, 7)%>
+					<%=PaginatorUtil.buildPageingHtml(pagingResult, 5)%>
 					</div>
 					 
 				</div>

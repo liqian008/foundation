@@ -1,12 +1,13 @@
 package com.bruce.foundation.admin.controller.security;
 
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ import com.bruce.foundation.admin.controller.BaseController;
 import com.bruce.foundation.admin.model.security.AdminResource;
 import com.bruce.foundation.admin.model.security.AdminResourceCriteria;
 import com.bruce.foundation.admin.service.security.AdminResourceService;
-import com.bruce.foundation.admin.utils.ValidatorUtil;
 import com.bruce.foundation.model.paging.PagingResult;
+import com.bruce.foundation.util.ValidatorUtil;
 
 
 @Controller
@@ -66,9 +67,19 @@ public class AdminResourceController extends BaseController {
 		String servletPath = request.getRequestURI();
 		model.addAttribute("servletPath", servletPath);
 		
-		AdminResourceCriteria criteria =  null;
-		//TODO 根据模块的需求构造查询条件
+		model.addAttribute("pageNo", pageNo);
 		
+		AdminResourceCriteria criteria =  null;
+		//根据模块的需求构造查询条件
+		String resourceName = request.getParameter("resourceName");
+		if(StringUtils.isNotBlank(resourceName)){
+			criteria = new AdminResourceCriteria();
+			if("get".equalsIgnoreCase(request.getMethod())){
+				resourceName = URLDecoder.decode(resourceName);
+			}
+			model.addAttribute("resourceName", resourceName);
+			criteria.createCriteria().andResourceNameLike("%"+resourceName+"%");
+		}
 		
 		PagingResult<AdminResource> adminResourceList = adminResourceService.pagingByCriteria(pageNo, pageSize , criteria);
 		if(adminResourceList!=null){

@@ -21,6 +21,12 @@
 			<artifactId>foundation-service</artifactId>
 			<version>1.0.0-BUILD-SNAPSHOT</version>
 		</dependency>
+		<!-- foundation util -->
+		<dependency>
+			<groupId>com.bruce</groupId>
+			<artifactId>foundation-util</artifactId>
+			<version>1.0.0-BUILD-SNAPSHOT</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -78,13 +84,13 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 			<type>jar</type>
 			<scope>compile</scope>
-		</dependency>
+		</dependency> -->
 
 
 		<!-- AspectJ -->

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import com.bruce.foundation.admin.model.security.AdminUser;
 import com.bruce.foundation.admin.security.WebUserDetails;
 import com.bruce.foundation.admin.service.security.AdminResourceService;
 import com.bruce.foundation.admin.service.security.AdminUserService;
-import com.bruce.foundation.admin.utils.ValidatorUtil;
+import com.bruce.foundation.util.ValidatorUtil;
 
 
 @Controller

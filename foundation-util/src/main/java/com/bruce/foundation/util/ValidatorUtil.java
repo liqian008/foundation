@@ -1,4 +1,4 @@
-package com.bruce.foundation.admin.utils;
+package com.bruce.foundation.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,7 +6,7 @@ import java.util.regex.PatternSyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class ValidatorUtil {
 
@@ -25,7 +25,7 @@ public class ValidatorUtil {
 		Pattern p = Pattern.compile(reg);
 		return p.matcher(str).matches();
 	}
-	
+
 	/**
 	 * 文本转html
 	 * 
@@ -79,10 +79,8 @@ public class ValidatorUtil {
 	/**
 	 * 剪切文本。如果进行了剪切，则在文本后加上"..."
 	 * 
-	 * @param s
-	 *            剪切对象。
-	 * @param len
-	 *            编码小于256的作为一个字符，大于256的作为两个字符。
+	 * @param s 剪切对象。
+	 * @param len 编码小于256的作为一个字符，大于256的作为两个字符。
 	 * @return
 	 */
 	public static String textCut(String s, int len, String append) {
@@ -123,20 +121,19 @@ public class ValidatorUtil {
 		}
 	}
 
-	
 	/**
 	 * 获取IP地址
 	 * 
 	 * @param request
 	 * @return
-	 */	
+	 */
 	public static String getIpAddr(HttpServletRequest request) {
 		String ip = request.getHeader("X-Real-IP");
 		if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
 			return ip;
 		}
-        ip = request.getHeader("X-Forwarded-For");
-        if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+		ip = request.getHeader("X-Forwarded-For");
+		if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
 			// 多次反向代理后会有多个IP值，第一个为真实IP。
 			int index = ip.indexOf(',');
 			if (index != -1) {
@@ -145,138 +142,139 @@ public class ValidatorUtil {
 				return ip;
 			}
 		}
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
-    }
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("HTTP_CLIENT_IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		return ip;
+	}
 
 	/**
 	 * 判断一个字符串是否为 null 或 空字符
+	 * 
 	 * @param input
 	 * @return
 	 */
-	public static boolean isEmpty(String input){
+	public static boolean isEmpty(String input) {
 		return StringUtils.isEmpty(input);
 	}
-	
+
 	/**
 	 * 判断一个字符串是否为 null 或 空字符 或 空格
+	 * 
 	 * @param input
 	 * @return
 	 */
-	public static boolean isBlank(String input){
+	public static boolean isBlank(String input) {
 		return StringUtils.isBlank(input);
 	}
-	
-	public static String regexFilter(String regex,String content) throws PatternSyntaxException {
+
+	public static String regexFilter(String regex, String content) throws PatternSyntaxException {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(content);
 		return matcher.replaceAll("");
-		
+
 	}
-	
+
 	public static String filterSpecialChar(String content) {
 
 		// 清除掉所有特殊字符
 		String regex = "[`~!@#$%^&*()+=|{}':;',//[//].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
-		return regexFilter(regex,content);
-		
+		return regexFilter(regex, content);
+
 	}
-	
+
 	public static String filterUnSafeChar(String content) {
 
 		content = filterHtml(content);
 		String regex = "[`~!@#$%^&*()+=|{}':;',//[//].<>/?~！@#￥%……&*（）+|{}【】‘；：”“’。，、？]";
-		content = regexFilter(regex,content);
+		content = regexFilter(regex, content);
 		return content;
-		
+
 	}
-	
+
 	public static String filterHtml(String content) {
 
 		String regex = "<.+?>";
-		return regexFilter(regex,content);
-		
+		return regexFilter(regex, content);
+
 	}
-	
+
 	public static String filterHtmlA(String content) {
 
 		String regex = "<.?a(.|\n)*?>";
-		return regexFilter(regex,content);
-		
+		return regexFilter(regex, content);
+
 	}
-	
+
 	public static String filterHtmlScript(String content) {
 
 		// 清除掉所有特殊字符
 		String regex = "<script((?:.|\\n)*?)</script>";
-		return regexFilter(regex,content);
-		
+		return regexFilter(regex, content);
+
 	}
-	
+
 	public static String filterHtmlImg(String content) {
 
 		String regex = "<img(.|\\n)*?>";
-		return regexFilter(regex,content);
-		
+		return regexFilter(regex, content);
+
 	}
-	
+
 	public static String filterUrl(String content) {
 
 		String regex = "\\w+://";
-		return regexFilter(regex,content);
-		
+		return regexFilter(regex, content);
+
 	}
-	
+
 	public static String filterHtmlDiv(String content) {
 
 		String regex = "<.?div(.|\\n)*?>";
-		return regexFilter(regex,content);
-		
-	}
-	
-	public static boolean isNumber(String input){
-		
-		return input.matches("^\\d+$");
-		
-	}
-	
-	public static boolean isOnlyLetter(String input){
-		
-		return input.matches("[^a-zA-Z]");
-		
-	}
-	
-	public static boolean isLetterAndNum(String input){
-		
-		return input.matches("[^a-zA-Z0-9]");
-		
-	}
-	
-	public static boolean isIP(String ip){
-		String regex = "^((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)$";
-		return Pattern.matches(regex, ip);
-		
-	}
-	
-	public static boolean isEMail(String input){
-		
-		return input.matches("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
-		
+		return regexFilter(regex, content);
+
 	}
 
-	
+	public static boolean isNumber(String input) {
+
+		return input.matches("^\\d+$");
+
+	}
+
+	public static boolean isOnlyLetter(String input) {
+
+		return input.matches("[^a-zA-Z]");
+
+	}
+
+	public static boolean isLetterAndNum(String input) {
+
+		return input.matches("[^a-zA-Z0-9]");
+
+	}
+
+	public static boolean isIP(String ip) {
+		String regex = "^((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)$";
+		return Pattern.matches(regex, ip);
+
+	}
+
+	public static boolean isEMail(String input) {
+
+		return input.matches("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
+
+	}
+
 }

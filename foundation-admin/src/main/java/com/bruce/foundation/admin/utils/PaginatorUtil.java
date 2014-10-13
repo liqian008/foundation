@@ -1,8 +1,11 @@
 package com.bruce.foundation.admin.utils;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.bruce.foundation.model.paging.PagingResult;
 
@@ -15,8 +18,16 @@ public class PaginatorUtil{
 		return "";
 	}
 	
+	
 	/**
 	 * 
+	 * @param requestUri
+	 * @param queryMap 参数map
+	 * @param currentPage 当前页数
+	 * @param pageSize 每页条数
+	 * @param totalRows 总条数
+	 * @param displayLimit 最多显示
+	 * @return
 	 */
 	public static String buildPageingHtml(String requestUri, Map<String, Object> queryMap, int currentPage, int pageSize, int totalRows, int displayLimit) {
 		StringBuilder pageNavHtml = new StringBuilder();
@@ -42,7 +53,7 @@ public class PaginatorUtil{
 		if (endNum > totalPage) {
 			endNum = totalPage;
 		}
-		pageNavHtml.append("<div class='dataTables_info' id='dataTables_info'>总计&nbsp;" + totalRows + "&nbsp;条, &nbsp;第&nbsp;"+beginNum+"&nbsp;/&nbsp;"+totalPage+"&nbsp;页</div>");
+		pageNavHtml.append("<div class='dataTables_info' id='dataTables_info'>总计&nbsp;" + totalRows + "&nbsp;条, &nbsp;第&nbsp;"+currentPage+"&nbsp;/&nbsp;"+totalPage+"&nbsp;页</div>");
 
 		// 至少有1页以上 才显示分页导航
 		if (totalPage > 1) {
@@ -99,28 +110,40 @@ public class PaginatorUtil{
 	 */
 	private static String buildPagingUrl(String requestUri, Map<String, Object> queryMap){
 		if(requestUri!=null&&queryMap!=null){
-			StringBuilder sb= new StringBuilder(requestUri+"?");
+			StringBuilder sb= new StringBuilder();
 			for(Entry<String, Object> entry: queryMap.entrySet()){
-				
 				String key = entry.getKey();
-				sb.append(key);
-				sb.append("=");
-				Object value = entry.getValue();
-				if (value instanceof String[]) {
-					String[] strs = (String[])value;
-					sb.append(strs[0]);
-				}else{
-					sb.append(String.valueOf(entry.getValue()));
+				Object valueObj = entry.getValue();
+				if(valueObj==null){
+					//do nothing
+				}else if(valueObj instanceof String[]) {
+					String[] values = (String[]) valueObj;
+					for(String value: values){
+						sb.append(key);
+						sb.append("=");
+//						sb.append(URLEncoder.encode(value));
+						sb.append(value);
+						sb.append("&");
+					}
+				}else if(valueObj instanceof String) {
+					String value = (String) valueObj;
+					sb.append(key);
+					sb.append("=");
+					if(StringUtils.isNotBlank(value)){
+//						sb.append(URLEncoder.encode(value));
+						sb.append(value);
+					}
+					sb.append("&");
 				}
-				sb.append("&");
 			}
-			return sb.toString();
+			return requestUri + "?" + sb.toString();
 		}
 		return requestUri;
 		
 	}
 	
 	public static void main(String[] args) {
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("key", "我");
 		System.out.println(buildPageingHtml("www.jinwanr.com.cn", map, 4, 2, 17, 5));

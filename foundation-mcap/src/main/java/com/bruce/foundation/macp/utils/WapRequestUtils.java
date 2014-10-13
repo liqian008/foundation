@@ -11,9 +11,11 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.bruce.foundation.util.RandomNumberUtil;
 
 /**
  * @author liqian
@@ -53,7 +55,7 @@ public class WapRequestUtils {
                 link = link.concat("sid=").concat(sid);
             }
 
-            return link.concat("&" + WapRandomUtils.getRandomString(9));
+            return link.concat("&" + RandomNumberUtil.getRandomString(9));
         } catch (Exception e) {
             logger.error("parseLink(HttpServletRequest, String, String)", e); //$NON-NLS-1$
         }
@@ -181,11 +183,11 @@ public class WapRequestUtils {
                 sid = "";
             }
 
-            return sid.concat("&" + WapRandomUtils.getRandomString(6));
+            return sid.concat("&" + RandomNumberUtil.getRandomString(6));
         } catch (Exception e) {
             logger.error("makeAuthString(HttpServletRequest)", e); //$NON-NLS-1$
         }
-        return "".concat("&" + WapRandomUtils.getRandomString(6));
+        return "".concat("&" + RandomNumberUtil.getRandomString(6));
     }
 
     /**

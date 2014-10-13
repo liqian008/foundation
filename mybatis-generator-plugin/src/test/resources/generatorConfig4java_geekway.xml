@@ -4,7 +4,9 @@
 
 	<classPathEntry
 		location="/Users/liqian/.m2/repository_lican/mysql/mysql-connector-java/5.1.23/mysql-connector-java-5.1.23.jar" />
-	<!-- <classPathEntry location="/home/liqian/data/mysql.jar" /> -->
+	<!-- 
+	<classPathEntry location="/home/liqian/data/mysql.jar" />
+	-->
 
 	<context id="context1">
 		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
@@ -15,7 +17,7 @@
 		</plugin>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/wx_1758" userId="designer"
+			connectionURL="jdbc:mysql://localhost:3306/wx_pay" userId="designer"
 			password="designer" />
 		<javaModelGenerator targetPackage="com.bruce.geekway.model"
 			targetProject="geekway-model" />
@@ -28,25 +30,39 @@
 
 
 		<!-- geekway config -->
+		
+		<!-- 
+		<table schema="wx" tableName="wx_product_category" domainObjectName="WxProductCategory"/>
+		<table schema="wx" tableName="wx_product_order" domainObjectName="WxProductOrder"/>
+		<table schema="wx" tableName="wx_product_voucher" domainObjectName="WxProductVoucher"/>
+		<table schema="wx" tableName="wx_user_address" domainObjectName="WxUserAddress"/>
+		<table schema="wx" tableName="wx_product" domainObjectName="WxProduct"/>
+		<table schema="wx" tableName="wx_product_sku" domainObjectName="WxProductSku"/>
+		
+		<table schema="wx" tableName="wx_product_tag" domainObjectName="WxProductTag"/>
+		<table schema="wx" tableName="wx_product_tag_relation" domainObjectName="WxProductTagRelation"/>
+		<table schema="wx" tableName="wx_sku_category" domainObjectName="WxSkuCategory"/>
+		<table schema="wx" tableName="wx_sku_prop" domainObjectName="WxSkuProp"/>
+
+		<table schema="wx" tableName="wx_user" domainObjectName="WxUser"/>
+		<table schema="wx" tableName="wx_web_user" domainObjectName="WxWebUser"/>
 		<table schema="wx" tableName="wx_pay_alarm" domainObjectName="WxPayAlarm" />
 		<table schema="wx" tableName="wx_pay_order_info" domainObjectName="WxPayOrderInfo" />
 		<table schema="wx" tableName="wx_pay_complaint" domainObjectName="WxPayComplaint" />
 		<table schema="wx" tableName="wx_pay_product" domainObjectName="WxPayProduct" />
-
-
-		<!-- <table schema="wx" tableName="wx_access_token" domainObjectName="WxAccessToken"/> 
-			<table schema="wx" tableName="wx_history_message" domainObjectName="WxHistoryMessage"/> 
-			<table schema="wx" tableName="wx_material_news" domainObjectName="WxMaterialNews"/> 
-			<table schema="wx" tableName="wx_material_article" domainObjectName="WxMaterialArticle"/> 
-			<table schema="wx" tableName="wx_material_news_article" domainObjectName="WxMaterialNewsArticle"/> 
-			<table schema="wx" tableName="wx_command" domainObjectName="WxCommand"/> 
-			<table schema="wx" tableName="wx_material_multimedia" domainObjectName="WxMaterialMultimedia"/> 
-			<table schema="wx" tableName="wx_broadcast" domainObjectName="WxBroadcast"/> 
-			<table schema="wx" tableName="wx_default_reply" domainObjectName="WxDefaultReply"/> 
-			<table schema="wx" tableName="wx_command_material" domainObjectName="WxCommandMaterial"/> 
-			<table schema="wx" tableName="wx_customize_menu" domainObjectName="WxCustomizeMenu"/> 
-			<table schema="wx" tableName="wx_mp_user" domainObjectName="WxMpUser"/> <table 
-			schema="wx" tableName="wx_material" domainObjectName="WxMaterial"/> -->
+		<table schema="wx" tableName="wx_access_token" domainObjectName="WxAccessToken"/> 
+		<table schema="wx" tableName="wx_history_message" domainObjectName="WxHistoryMessage"/> 
+		<table schema="wx" tableName="wx_material_news" domainObjectName="WxMaterialNews"/> 
+		<table schema="wx" tableName="wx_material_article" domainObjectName="WxMaterialArticle"/> 
+		<table schema="wx" tableName="wx_material_news_article" domainObjectName="WxMaterialNewsArticle"/> 
+		<table schema="wx" tableName="wx_command" domainObjectName="WxCommand"/> 
+		<table schema="wx" tableName="wx_material_multimedia" domainObjectName="WxMaterialMultimedia"/> 
+		<table schema="wx" tableName="wx_broadcast" domainObjectName="WxBroadcast"/> 
+		<table schema="wx" tableName="wx_default_reply" domainObjectName="WxDefaultReply"/> 
+		<table schema="wx" tableName="wx_command_material" domainObjectName="WxCommandMaterial"/> 
+		<table schema="wx" tableName="wx_customize_menu" domainObjectName="WxCustomizeMenu"/> 
+		<table schema="wx" tableName="wx_material" domainObjectName="WxMaterial"/> 
+		-->
 
 	</context>
 </generatorConfiguration>

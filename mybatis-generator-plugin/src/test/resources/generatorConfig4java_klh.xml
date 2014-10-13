@@ -17,7 +17,7 @@
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 			connectionURL="jdbc:mysql://localhost:3306/wx_klh" userId="designer"
 			password="designer" />
-		<
+
 		<javaModelGenerator targetPackage="com.bruce.geekway.model"
 			targetProject="geekway-model" />
 		<sqlMapGenerator targetPackage="com.bruce.geekway.model.xml"
@@ -28,14 +28,16 @@
 		</javaClientGenerator>
 
 		<!-- klh config -->
+		
+		<table schema="wx" tableName="klh_product_order" domainObjectName="KlhProductOrder" /> 
 
+		<!--
 		<table schema="wx" tableName="klh_setting" domainObjectName="KlhSetting" />
-
-		<!-- <table schema="wx" tableName="klh_product" domainObjectName="KlhProduct"/> 
+		 <table schema="wx" tableName="klh_product" domainObjectName="KlhProduct"/> 
 			<table schema="wx" tableName="klh_user_profile" domainObjectName="KlhUserProfile"/> 
 			<table schema="wx" tableName="klh_wall_image_log" domainObjectName="KlhWallImageLog"/> 
-			<table schema="wx" tableName="klh_vote" domainObjectName="KlhVote"/> <table 
-			schema="wx" tableName="klh_vote_option" domainObjectName="KlhVoteOption"/> 
+			<table schema="wx" tableName="klh_vote" domainObjectName="KlhVote"/> 
+			<table schema="wx" tableName="klh_vote_option" domainObjectName="KlhVoteOption"/> 
 			<table schema="wx" tableName="klh_user_score_history" domainObjectName="KlhUserScoreHistory"/> 
 			<table schema="wx" tableName="klh_score_setting" domainObjectName="KlhScoreSetting"/> 
 			<table schema="wx" tableName="klh_user_score_log" domainObjectName="KlhUserScoreLog"/> 

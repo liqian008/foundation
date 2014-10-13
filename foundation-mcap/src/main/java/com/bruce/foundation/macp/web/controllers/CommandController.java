@@ -9,8 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -31,7 +31,6 @@ import com.bruce.foundation.macp.api.service.CommandLookupService;
 import com.bruce.foundation.macp.api.service.MobileClientAppService;
 import com.bruce.foundation.macp.api.utils.ResponseBuilderUtil;
 import com.bruce.foundation.macp.constants.HttpConstants;
-import com.bruce.foundation.macp.passport.entity.UserPassport;
 import com.bruce.foundation.macp.passport.service.PassportService;
 import com.bruce.foundation.macp.utils.McpUtils;
 import com.bruce.foundation.model.result.ApiResult;

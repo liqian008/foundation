@@ -6,7 +6,7 @@ package com.bruce.foundation.macp.api.entity;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 

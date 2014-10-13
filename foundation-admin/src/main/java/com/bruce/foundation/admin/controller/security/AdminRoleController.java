@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.bruce.foundation.admin.controller.BaseController;
 import com.bruce.foundation.admin.model.security.AdminResource;
 import com.bruce.foundation.admin.model.security.AdminRole;
-import com.bruce.foundation.admin.security.WebUserDetails;
 import com.bruce.foundation.admin.service.security.AdminResourceService;
 import com.bruce.foundation.admin.service.security.AdminRoleService;
-import com.bruce.foundation.admin.utils.ValidatorUtil;
 import com.bruce.foundation.enumeration.StatusEnum;
+import com.bruce.foundation.util.ValidatorUtil;
 
 
 @Controller
