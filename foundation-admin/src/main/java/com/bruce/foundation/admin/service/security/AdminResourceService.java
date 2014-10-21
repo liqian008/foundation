@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import com.bruce.foundation.admin.model.security.AdminResource;
 import com.bruce.foundation.admin.model.security.AdminResourceCriteria;
 import com.bruce.foundation.service.IFoundationPagingService;
-import com.bruce.foundation.service.IFoundationService;
 
 public interface AdminResourceService extends IFoundationPagingService<AdminResource, Integer, AdminResourceCriteria>{
 	

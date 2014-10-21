@@ -12,6 +12,9 @@ public class DateUtil {
 	public static long TIME_UNIT_MINUTE = TIME_UNIT_SECOND*60;
 	public static long TIME_UNIT_HOUR = TIME_UNIT_MINUTE*60;
 	public static long TIME_UNIT_DAY = TIME_UNIT_HOUR*24;
+	public static final long TIME_UNIT_WEEK = TIME_UNIT_DAY*7;
+	public static final long TIME_UNIT_MONTH = TIME_UNIT_DAY*30;
+	public static final long TIME_UNIT_YEAR = TIME_UNIT_DAY*365;
 	
 	public static final SimpleDateFormat DATE_FORMAT_YMDHMS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public static final SimpleDateFormat DATE_FORMAT_YMDHMS_COMPACT = new SimpleDateFormat("yyyyMMddHHmmss");
