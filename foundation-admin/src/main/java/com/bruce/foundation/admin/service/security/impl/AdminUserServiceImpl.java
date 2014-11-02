@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.bruce.foundation.admin.mapper.security.AdminUserMapper;
 import com.bruce.foundation.admin.mapper.security.AdminUserRoleMapper;
+import com.bruce.foundation.admin.model.security.AdminRole;
+import com.bruce.foundation.admin.model.security.AdminRoleCriteria;
 import com.bruce.foundation.admin.model.security.AdminUser;
 import com.bruce.foundation.admin.model.security.AdminUserCriteria;
 import com.bruce.foundation.admin.model.security.AdminUserRole;
@@ -71,6 +73,32 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@Override
 	public List<AdminUser> queryByCriteria(AdminUserCriteria criteria) {
 		return adminUserMapper.selectByExample(criteria);
+	}
+	
+
+	@Override
+	public List<AdminUser> fallloadByCriteria(int pageSize, AdminUserCriteria criteria) {
+		return null;
+	}
+
+	@Override
+	public PagingResult<AdminUser> pagingByCriteria(int pageNo, int pageSize, AdminUserCriteria criteria) {
+		pageNo = pageNo<=0?1:pageNo;//确保pageNo合法
+		pageSize = pageNo<=0?20:pageSize;//确保pageSize合法
+		int offset = (pageNo-1)*pageSize;
+		
+		//构造查询条件
+		if(criteria==null){
+			criteria = new AdminUserCriteria();
+		}
+		
+		criteria.setLimitOffset(offset);
+		criteria.setLimitRows(pageSize);
+		
+		int count = adminUserMapper.countByExample(criteria);
+		List<AdminUser> dataList = adminUserMapper.selectByExample(criteria);
+		//返回分页数据
+		return new PagingResult<AdminUser>(pageNo, pageSize, count, dataList);
 	}
 
 	@Override

@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.bruce.foundation.admin.model.security.AdminUser;
 import com.bruce.foundation.admin.model.security.AdminUserCriteria;
-import com.bruce.foundation.service.IFoundationService;
+import com.bruce.foundation.service.IFoundationPagingService;
 
-public interface AdminUserService extends IFoundationService<AdminUser, Integer, AdminUserCriteria> {
+public interface AdminUserService extends IFoundationPagingService<AdminUser, Integer, AdminUserCriteria> {
 	
 	public AdminUser loadUserByUsername(String username);
 	

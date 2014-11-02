@@ -2,6 +2,7 @@ package com.bruce.foundation.admin.controller.security;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,13 +16,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bruce.foundation.admin.controller.BaseController;
 import com.bruce.foundation.admin.model.security.AdminRole;
 import com.bruce.foundation.admin.model.security.AdminUser;
+import com.bruce.foundation.admin.model.security.AdminUserCriteria;
 import com.bruce.foundation.admin.service.security.AdminRoleService;
 import com.bruce.foundation.admin.service.security.AdminUserService;
 import com.bruce.foundation.enumeration.StatusEnum;
+import com.bruce.foundation.model.paging.PagingResult;
 import com.bruce.foundation.util.ValidatorUtil;
 
 
@@ -31,6 +35,8 @@ public class AdminUserController extends BaseController {
 
 	private static Logger logger = LoggerFactory.getLogger(AdminUserController.class);
 	
+	private static final int pageSize = 50;
+	
 	@Autowired
 	private AdminUserService adminUserService;
 	@Autowired
@@ -38,6 +44,39 @@ public class AdminUserController extends BaseController {
 	@Autowired
 	private PasswordEncoder pwEncoder;
 	//<beans:bean id="pwEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+	
+	
+	
+	/**
+	 * 分页方式查询
+	 * @param model
+	 * @param pageNo
+	 * @param pageSize
+	 * @param request
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/userPaging")
+	public String userPaging(Model model, @RequestParam(defaultValue="1")int pageNo, HttpServletRequest request) {
+		String servletPath = request.getRequestURI();
+		model.addAttribute("servletPath", servletPath);
+		
+		model.addAttribute("pageNo", pageNo);
+		
+		AdminUserCriteria criteria =  null;
+		
+		PagingResult<AdminUser> adminUserList = adminUserService.pagingByCriteria(pageNo, pageSize , criteria);
+		if(adminUserList!=null){
+			adminUserList.setRequestUri(request.getRequestURI());
+			
+			HashMap<String, Object> queryMap = new HashMap();
+			queryMap.putAll(request.getParameterMap());
+			adminUserList.setQueryMap(queryMap);
+			model.addAttribute("adminUserList", adminUserList);
+		}
+		return "sys/userListPaging";
+	}
+	
 	
 	@RequestMapping("/users")
 	public String userList(Model model, HttpServletRequest request) {

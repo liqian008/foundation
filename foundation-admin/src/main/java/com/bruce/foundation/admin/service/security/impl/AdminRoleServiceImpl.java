@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.bruce.foundation.admin.mapper.security.AdminRoleMapper;
 import com.bruce.foundation.admin.mapper.security.AdminRoleResourceMapper;
 import com.bruce.foundation.admin.mapper.security.AdminUserRoleMapper;
+import com.bruce.foundation.admin.model.security.AdminResource;
+import com.bruce.foundation.admin.model.security.AdminResourceCriteria;
 import com.bruce.foundation.admin.model.security.AdminRole;
 import com.bruce.foundation.admin.model.security.AdminRoleCriteria;
 import com.bruce.foundation.admin.model.security.AdminRoleResource;
@@ -79,6 +81,32 @@ public class AdminRoleServiceImpl implements AdminRoleService{
 	public List<AdminRole> queryByCriteria(AdminRoleCriteria criteria) {
 		return adminRoleMapper.selectByExample(criteria);
 	}
+	
+
+	@Override
+	public List<AdminRole> fallloadByCriteria(int pageSize, AdminRoleCriteria criteria) {
+		return null;
+	}
+
+	@Override
+	public PagingResult<AdminRole> pagingByCriteria(int pageNo, int pageSize, AdminRoleCriteria criteria) {
+		pageNo = pageNo<=0?1:pageNo;//确保pageNo合法
+		pageSize = pageNo<=0?20:pageSize;//确保pageSize合法
+		int offset = (pageNo-1)*pageSize;
+		
+		//构造查询条件
+		if(criteria==null){
+			criteria = new AdminRoleCriteria();
+		}
+		
+		criteria.setLimitOffset(offset);
+		criteria.setLimitRows(pageSize);
+		
+		int count = adminRoleMapper.countByExample(criteria);
+		List<AdminRole> dataList = adminRoleMapper.selectByExample(criteria);
+		//返回分页数据
+		return new PagingResult<AdminRole>(pageNo, pageSize, count, dataList);
+	}
 
 	
 	@Override
@@ -137,5 +165,6 @@ public class AdminRoleServiceImpl implements AdminRoleService{
 		criteria.createCriteria().andRoleIdEqualTo(roleId);
 		return adminRoleResourceMapper.deleteByExample(criteria);
 	}
+
 
 }

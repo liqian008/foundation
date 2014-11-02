@@ -2,12 +2,11 @@ package com.bruce.foundation.admin.service.security;
 
 import java.util.List;
 
-
 import com.bruce.foundation.admin.model.security.AdminRole;
 import com.bruce.foundation.admin.model.security.AdminRoleCriteria;
-import com.bruce.foundation.service.IFoundationService;
+import com.bruce.foundation.service.IFoundationPagingService;
 
-public interface AdminRoleService extends IFoundationService<AdminRole, Integer, AdminRoleCriteria>{
+public interface AdminRoleService extends IFoundationPagingService<AdminRole, Integer, AdminRoleCriteria>{
 	
 	/*获取所有可用的角色*/
 	public List<AdminRole> queryRoles(Short status);

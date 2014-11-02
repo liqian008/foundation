@@ -2,6 +2,7 @@ package com.bruce.foundation.admin.controller.security;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,13 +15,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bruce.foundation.admin.controller.BaseController;
 import com.bruce.foundation.admin.model.security.AdminResource;
 import com.bruce.foundation.admin.model.security.AdminRole;
+import com.bruce.foundation.admin.model.security.AdminRoleCriteria;
 import com.bruce.foundation.admin.service.security.AdminResourceService;
 import com.bruce.foundation.admin.service.security.AdminRoleService;
 import com.bruce.foundation.enumeration.StatusEnum;
+import com.bruce.foundation.model.paging.PagingResult;
 import com.bruce.foundation.util.ValidatorUtil;
 
 
@@ -30,10 +34,44 @@ public class AdminRoleController extends BaseController {
 
 	private static Logger logger = LoggerFactory.getLogger(AdminRoleController.class);
 	
+	private static final int pageSize = 50;
+	
 	@Autowired
 	private AdminRoleService adminRoleService;
 	@Autowired
 	private AdminResourceService adminResourceService;
+	
+	
+	/**
+	 * 分页方式查询
+	 * @param model
+	 * @param pageNo
+	 * @param pageSize
+	 * @param request
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/rolePaging")
+	public String rolePaging(Model model, @RequestParam(defaultValue="1")int pageNo, HttpServletRequest request) {
+		String servletPath = request.getRequestURI();
+		model.addAttribute("servletPath", servletPath);
+		
+		model.addAttribute("pageNo", pageNo);
+		
+		AdminRoleCriteria criteria =  null;
+		
+		PagingResult<AdminRole> adminRoleList = adminRoleService.pagingByCriteria(pageNo, pageSize , criteria);
+		if(adminRoleList!=null){
+			adminRoleList.setRequestUri(request.getRequestURI());
+			
+			HashMap<String, Object> queryMap = new HashMap();
+			queryMap.putAll(request.getParameterMap());
+			adminRoleList.setQueryMap(queryMap);
+			model.addAttribute("adminRoleList", adminRoleList);
+		}
+		return "sys/roleListPaging";
+	}
+	
 	
 	@RequestMapping("/roles")
 	public String roleList(Model model, String roleName, HttpServletRequest request) {

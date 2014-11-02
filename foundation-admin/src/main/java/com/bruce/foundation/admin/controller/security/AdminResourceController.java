@@ -34,7 +34,7 @@ public class AdminResourceController extends BaseController {
 	@Autowired
 	private AdminResourceService adminResourceService;
 
-	private static final int pageSize = 5;
+	private static final int pageSize = 50;
 	
 	/**
 	 * 查询全部
@@ -62,7 +62,7 @@ public class AdminResourceController extends BaseController {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/resourcesPaging")
+	@RequestMapping("/resourcePaging")
 	public String resourcesPaging(Model model, @RequestParam(defaultValue="1")int pageNo, HttpServletRequest request) {
 		String servletPath = request.getRequestURI();
 		model.addAttribute("servletPath", servletPath);
