@@ -155,7 +155,7 @@ public class AdminResourceController extends BaseController {
 			adminResource.setCreateTime(currentTime);
 			result = adminResourceService.save(adminResource);
 		}
-		model.addAttribute("redirectUrl", "../sys/resources");
+		model.addAttribute("redirectUrl", "../sys/resourcePaging");
 		
 		//刷新菜单资源
 		//adminResourceService.reloadResourcesForUser(request);

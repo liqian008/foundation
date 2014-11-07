@@ -132,7 +132,7 @@ public class AdminRoleController extends BaseController {
 		}
 		
 		
-		model.addAttribute("redirectUrl", "../sys/roles");
+		model.addAttribute("redirectUrl", "../sys/rolePaging");
 		return "forward:/home/operationRedirect";
 	}
 	
@@ -194,7 +194,7 @@ public class AdminRoleController extends BaseController {
 			    result = adminRoleService.updateRoleResources(roleId, resourceIdList);
 		    }
 		}
-		model.addAttribute("redirectUrl", "../sys/roles");
+		model.addAttribute("redirectUrl", "../sys/rolePaging");
 		return "forward:/home/operationRedirect";
 	}
 	

@@ -140,7 +140,7 @@ public class AdminUserController extends BaseController {
 			result = adminUserService.save(adminUser);
 		}
 		
-		model.addAttribute("redirectUrl", "../sys/users");
+		model.addAttribute("redirectUrl", "../sys/userPaging");
 		return "forward:/home/operationRedirect";
 	}
 	
@@ -151,7 +151,7 @@ public class AdminUserController extends BaseController {
 		
 		//删除单个
 		adminUserService.deleteById(id);
-		model.addAttribute("redirectUrl", "../sys/users");
+		model.addAttribute("redirectUrl", "../sys/userPaging");
 		return "forward:/home/operationRedirect";
 	}
 	
@@ -202,7 +202,7 @@ public class AdminUserController extends BaseController {
         	}
         }
         
-        model.addAttribute("redirectUrl", "../sys/users");
+        model.addAttribute("redirectUrl", "../sys/userPaging");
         return "forward:/home/operationRedirect";
     }
 	

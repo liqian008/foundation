@@ -56,16 +56,16 @@ public class PaginatorUtil{
 		pageNavHtml.append("<div class='dataTables_info' id='dataTables_info'>总计&nbsp;" + totalRows + "&nbsp;条, &nbsp;第&nbsp;"+currentPage+"&nbsp;/&nbsp;"+totalPage+"&nbsp;页</div>");
 
 		// 至少有1页以上 才显示分页导航
-		if (totalPage > 1) {
+		if (totalPage >= 1) {
 			
 			pageNavHtml.append("<div class='dataTables_paginate paging_full_numbers' id='DataTables_Table_paginate'>");
 			
-			// 需要显示 首页
-			// if (currentPage > 1) {
-			
-			queryMap.put("pageNo", "1");
-			pageNavHtml.append("<a href='"+buildPagingUrl(requestUri, queryMap)+"' class='first paginate_button' id='DataTables_Table_first'>首页</a>");
-			// }
+			String firstPageUrl = "javascript:void(0)";//默认首页无点击效果
+			if (totalPage > 1) {//全部页>1
+				queryMap.put("pageNo", "1");
+				firstPageUrl = buildPagingUrl(requestUri, queryMap);
+			}
+			pageNavHtml.append("<a href='"+firstPageUrl+"' class='first paginate_button' id='DataTables_Table_first'>首页</a>");
 
 			// 如果有上一页
 			if (currentPage > beginNum) {
@@ -91,11 +91,20 @@ public class PaginatorUtil{
 				pageNavHtml.append("<a href='"+buildPagingUrl(requestUri, queryMap)+"' class='next paginate_button' id='DataTables_Table_next'>&gt;</a>");
 			}
 
-			// 需要显示 尾页
-			// if (currentPage < totalPage) {
-			queryMap.put("pageNo", String.valueOf(totalPage));
-			pageNavHtml.append("<a href='"+buildPagingUrl(requestUri, queryMap)+"' class='last paginate_button' id='DataTables_Table_first'>尾页</a>");
-			// }
+//			// 需要显示 尾页
+//			// if (currentPage < totalPage) {
+//			//默认首页无点击效果
+//			queryMap.put("pageNo", String.valueOf(totalPage));
+//			pageNavHtml.append("<a href='"+buildPagingUrl(requestUri, queryMap)+"' class='last paginate_button' id='DataTables_Table_first'>尾页</a>");
+//			// }
+			
+			String lastPageUrl = "javascript:void(0)";//默认首页无点击效果
+			if (totalPage > 1) {//全部页>1
+				queryMap.put("pageNo", String.valueOf(totalPage));
+				lastPageUrl = buildPagingUrl(requestUri, queryMap);
+			}
+			pageNavHtml.append("<a href='"+lastPageUrl+"' class='last paginate_button' id='DataTables_Table_first'>尾页</a>");
+			
 			
 			pageNavHtml.append("</div>");
 		}
