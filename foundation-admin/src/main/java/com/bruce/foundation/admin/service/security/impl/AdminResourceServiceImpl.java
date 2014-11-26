@@ -83,6 +83,11 @@ public class AdminResourceServiceImpl implements AdminResourceService{
 	public List<AdminResource> queryByCriteria(AdminResourceCriteria criteria) {
 		return adminResourceMapper.selectByExample(criteria);
 	}
+	
+	@Override
+	public int countByCriteria(AdminResourceCriteria criteria) {
+		return adminResourceMapper.countByExample(criteria);
+	}
 
 	@Override
 	public List<AdminResource> fallloadByCriteria(int pageSize,
@@ -315,6 +320,8 @@ public class AdminResourceServiceImpl implements AdminResourceService{
             securityMetadataSource.initResource();
         }
     }
+
+	
 
 	
 }

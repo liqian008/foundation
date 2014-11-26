@@ -5,7 +5,6 @@
 package com.bruce.foundation.macp.api.service.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,13 +14,15 @@ import org.apache.commons.logging.LogFactory;
 
 import com.bruce.foundation.macp.api.entity.MobileClientAppInfo;
 import com.bruce.foundation.macp.api.service.MobileClientAppService;
-import com.bruce.foundation.macp.utils.McpUtils;
 
 /**
  * @author liqian
  * 
  */
 public class MobileClientAppServiceImpl implements MobileClientAppService, Runnable {
+	
+	public static final String SECRET_KEY_DEFAULT = "1qaz2wsx";
+	
 
     private static final Log logger = LogFactory.getLog(MobileClientAppServiceImpl.class);
 
@@ -39,10 +40,11 @@ public class MobileClientAppServiceImpl implements MobileClientAppService, Runna
         // test app
         appIdAppInfoMap = new HashMap<Integer, MobileClientAppInfo>();
         MobileClientAppInfo mcai = new MobileClientAppInfo();
-        mcai.setAppId(1);
-        mcai.setAppName("testapp");
+        
+        mcai.setAppId(2);//安卓客户端
+        mcai.setAppName("安卓客户端");
         mcai.setAppUrl("ttt");
-        mcai.setSecretKey("1qaz2wsx");
+        mcai.setSecretKey(SECRET_KEY_DEFAULT);
         appIdAppInfoMap.put(mcai.getAppId(), mcai);
         appAuthMap = new HashMap<Integer, List<String>>();
         List<String> methods = new ArrayList<String>();

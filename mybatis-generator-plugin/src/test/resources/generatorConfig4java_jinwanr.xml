@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
-
+	
+	<!-- 
 	<classPathEntry
 		location="/Users/liqian/.m2/repository_lican/mysql/mysql-connector-java/5.1.23/mysql-connector-java-5.1.23.jar" />
-	<!-- <classPathEntry location="/home/liqian/data/mysql.jar" /> -->
-
+	-->
+	<classPathEntry location="/home/liqian/data/mysql.jar" /> 
+	
 	<context id="context1">
 		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
 			<property name="searchString" value="Example$" />
@@ -25,9 +27,15 @@
 			targetProject="designer-service" type="XMLMAPPER">
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
-
-		<table schema="designer" tableName="tb_album" domainObjectName="Album" />
+		
+		<!--user表有约束，需要生成insert ingore-->
+		<table schema="designer" tableName="tb_user" domainObjectName="User"/>
+		
 		<!-- 
+		<table schema="designer" tableName="tb_user_push_token" domainObjectName="UserPushToken" />
+		<table schema="designer" tableName="tb_version_update" domainObjectName="VersionUpdate" />
+		
+		<table schema="designer" tableName="tb_album" domainObjectName="Album" />
 		<table schema="designer" tableName="tb_access_token_info" domainObjectName="AccessTokenInfo"/> 
 		<table schema="designer" tableName="tb_album_action_log" domainObjectName="AlbumActionLog"/> 
 		<table schema="designer" tableName="tb_album_favorite" domainObjectName="AlbumFavorite"/> 
@@ -47,9 +55,9 @@
 		<table schema="designer" tableName="tb_album_slide" domainObjectName="AlbumSlide"/> 
 		<table schema="designer" tableName="tb_comment" domainObjectName="Comment"/> 
 		<table schema="designer" tableName="tb_user_message" domainObjectName="UserMessage"/> 
-		<table schema="designer" tableName="tb_user" domainObjectName="User"/> <table 
-		schema="designer" tableName="tb_designer" domainObjectName="Designer"/> <table 
-		schema="designer" tableName="tb_user_source" domainObjectName="UserSource"/> 
+		
+		<table schema="designer" tableName="tb_designer" domainObjectName="Designer"/> 
+		<table schema="designer" tableName="tb_user_source" domainObjectName="UserSource"/> 
 		<table schema="designer" tableName="tb_feed" domainObjectName="FeedDTO" /> 
 		<table schema="designer" tableName="tb_tag" domainObjectName="Tag"></table> 
 		-->
