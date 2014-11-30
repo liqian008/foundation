@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import com.bruce.foundation.admin.mapper.security.AdminRoleMapper;
 import com.bruce.foundation.admin.mapper.security.AdminRoleResourceMapper;
 import com.bruce.foundation.admin.mapper.security.AdminUserRoleMapper;
-import com.bruce.foundation.admin.model.security.AdminResource;
-import com.bruce.foundation.admin.model.security.AdminResourceCriteria;
 import com.bruce.foundation.admin.model.security.AdminRole;
 import com.bruce.foundation.admin.model.security.AdminRoleCriteria;
 import com.bruce.foundation.admin.model.security.AdminRoleResource;
@@ -80,6 +78,11 @@ public class AdminRoleServiceImpl implements AdminRoleService{
 	@Override
 	public List<AdminRole> queryByCriteria(AdminRoleCriteria criteria) {
 		return adminRoleMapper.selectByExample(criteria);
+	}
+	
+	@Override
+	public int countByCriteria(AdminRoleCriteria criteria) {
+		return adminRoleMapper.countByExample(criteria);
 	}
 	
 

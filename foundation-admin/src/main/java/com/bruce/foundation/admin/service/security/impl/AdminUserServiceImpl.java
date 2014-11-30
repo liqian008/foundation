@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.bruce.foundation.admin.mapper.security.AdminUserMapper;
 import com.bruce.foundation.admin.mapper.security.AdminUserRoleMapper;
-import com.bruce.foundation.admin.model.security.AdminRole;
-import com.bruce.foundation.admin.model.security.AdminRoleCriteria;
 import com.bruce.foundation.admin.model.security.AdminUser;
 import com.bruce.foundation.admin.model.security.AdminUserCriteria;
 import com.bruce.foundation.admin.model.security.AdminUserRole;
@@ -75,6 +73,11 @@ public class AdminUserServiceImpl implements AdminUserService{
 		return adminUserMapper.selectByExample(criteria);
 	}
 	
+	
+	@Override
+	public int countByCriteria(AdminUserCriteria criteria) {
+		return adminUserMapper.countByExample(criteria);
+	}
 
 	@Override
 	public List<AdminUser> fallloadByCriteria(int pageSize, AdminUserCriteria criteria) {

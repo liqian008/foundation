@@ -40,5 +40,6 @@ public interface IFoundationService<T, Id, TCriteria> {
 	/*条件查询*/
 	public List<T> queryByCriteria(TCriteria criteria);
 	
-
+	/*条件count*/
+	public int countByCriteria(TCriteria criteria);
 }

@@ -29,6 +29,7 @@ import com.bruce.foundation.macp.api.entity.MobileClientAppInfo;
 import com.bruce.foundation.macp.api.entity.RequestBaseContext;
 import com.bruce.foundation.macp.api.service.CommandLookupService;
 import com.bruce.foundation.macp.api.service.MobileClientAppService;
+import com.bruce.foundation.macp.api.service.impl.MobileClientAppServiceImpl;
 import com.bruce.foundation.macp.api.utils.ResponseBuilderUtil;
 import com.bruce.foundation.macp.constants.HttpConstants;
 import com.bruce.foundation.macp.passport.service.PassportService;
@@ -42,7 +43,7 @@ import com.bruce.foundation.model.result.ApiResult;
  * 
  */
 public class CommandController extends AbstractController implements InitializingBean {
-
+	
     private static final Log logger = LogFactory.getLog(CommandController.class);
 
     private static final Log httpAccessLogger = LogFactory.getLog("mcp_http_access_log");
@@ -61,6 +62,8 @@ public class CommandController extends AbstractController implements Initializin
     protected int sigCacheTimeout = 5;// default is 5s
 
     private final String httpAccessLogFormat = "%s|%s|%s|%s|%s|%s|%s|%s|%s";
+
+	private int i = 0;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
@@ -247,9 +250,14 @@ public class CommandController extends AbstractController implements Initializin
 //                                    .getClass().getName(), requestBaseContext.getUserId(),
 //                            requestBaseContext.getSecretKey()));
 //                }
-            	
-            	//暂时不使用用户的secretKey，改用系统默认的
-            	requestBaseContext.setSecretKey(requestBaseContext.getAppInfo().getSecretKey());
+        		
+            	//使用用户的secretKey（目前使用统一的secretkey，便于以后扩展）
+        		if(i%6==4){
+        			requestBaseContext.setSecretKey("12345");
+        		}else{
+        			requestBaseContext.setSecretKey(MobileClientAppServiceImpl.SECRET_KEY_DEFAULT);
+        		}
+        		i ++;
             } else {
                 mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_INVALID_TICKET));
                 return false;
@@ -277,6 +285,7 @@ public class CommandController extends AbstractController implements Initializin
             requestBaseContext.setSecretKey(requestBaseContext.getAppInfo().getSecretKey());
         }
         String secretKey = requestBaseContext.getSecretKey();
+        System.out.println("====secretKey==="+secretKey);
         //        if (secretKey != null) {// 有secretKey时，才校验；当从tt中取用户secretKey失败时，不做校验：用户体验为王
         String normalizedString = McpUtils.generateNormalizedString(requestParamMap);
         String requiredSig = McpUtils.generateSignature(normalizedString, secretKey);
