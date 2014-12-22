@@ -63,7 +63,7 @@ public class CommandController extends AbstractController implements Initializin
 
     private final String httpAccessLogFormat = "%s|%s|%s|%s|%s|%s|%s|%s|%s";
 
-	private int i = 0;
+//	private int i = 0;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
@@ -252,12 +252,12 @@ public class CommandController extends AbstractController implements Initializin
 //                }
         		
             	//使用用户的secretKey（目前使用统一的secretkey，便于以后扩展）
-        		if(i%6==4){
-        			requestBaseContext.setSecretKey("12345");
-        		}else{
+//        		if(i%6==4){
+//        			requestBaseContext.setSecretKey("12345");
+//        		}else{
         			requestBaseContext.setSecretKey(MobileClientAppServiceImpl.SECRET_KEY_DEFAULT);
-        		}
-        		i ++;
+//        		}
+//        		i ++;
             } else {
                 mcpResponse.write(ResponseBuilderUtil.buildErrorResult(ErrorCode.E_SYS_INVALID_TICKET));
                 return false;

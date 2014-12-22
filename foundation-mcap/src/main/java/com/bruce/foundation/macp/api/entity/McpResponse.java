@@ -88,7 +88,7 @@ public class McpResponse {
             
 //            BuildUtils.buildX2ApiResult(apiResult, messageSource, language);
         	
-        	ResponseBuilderUtil.fillMessage(apiResult, messageSource, language);
+//        	ResponseBuilderUtil.fillMessage(apiResult, messageSource, language);
         	
             this.writeHttpHeader();
 
